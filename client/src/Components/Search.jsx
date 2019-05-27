@@ -32,23 +32,29 @@ class Search extends Component {
     
 
     render() {
+        let img;
         let text;
         let imageLink;
         let nutrients = {};
         if (this.state.hasData === true) {
             imageLink = this.state.data.parsed[0].food.image
+            img = (
+                <img className='food-pic' width={'10%'} height={'5%'}src={imageLink}/>
+            )
             text = this.state.name
             nutrients.fat = <p>Fat: {this.state.data.parsed[0].food.nutrients.FAT}</p>
             nutrients.fib = <p>Fiber: {this.state.data.parsed[0].food.nutrients.FIBTG}</p>
         } else {
-            imageLink = 'http://placekitten.com/200/300'
+            img = (
+                <p></p>
+            )
         }
         return(
             <section className='search-box'>
             <h3>Search by ingredient: </h3>
             <input onChange={this.handleChange}name='name' type='text'/>
             <button onClick={this.handleClick}>Submit!</button> <br/>
-            <img className='food-pic' width={'10%'} height={'5%'}src={imageLink}/>
+            {img}
             <p>{text}</p>
             <p>{nutrients.fat}</p>
             <p>{nutrients.fib}</p>
