@@ -39,14 +39,28 @@ class Search extends Component {
         if (this.state.hasData === true) {
             imageLink = this.state.data.parsed[0].food.image
             img = (
-                <img className='food-pic' width={'10%'} height={'5%'}src={imageLink}/>
+                <>
+                <img className='food-pic' width={'10%'} height={'5%'}src={imageLink}/> <br/>
+                <section className='add-box'>
+                <select>Quantity: 
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+                <button>Add to Pantry</button>
+                </section>
+                </>
             )
             text = this.state.name
             nutrients.fat = <p>Fat: {this.state.data.parsed[0].food.nutrients.FAT}</p>
             nutrients.fib = <p>Fiber: {this.state.data.parsed[0].food.nutrients.FIBTG}</p>
         } else {
             img = (
-                <p></p>
+                <p>Not Found</p>
             )
         }
         return(
