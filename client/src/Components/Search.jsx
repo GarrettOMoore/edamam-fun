@@ -56,8 +56,8 @@ class Search extends Component {
                 </>
             )
             text = this.state.name
-            nutrients.fat = <p>Fat: {this.state.data.parsed[0].food.nutrients.FAT}</p>
-            nutrients.fib = <p>Fiber: {this.state.data.parsed[0].food.nutrients.FIBTG}</p>
+            nutrients.fat = `Fat: ${this.state.data.parsed[0].food.nutrients.FAT}`
+            nutrients.fib = `Fiber: ${this.state.data.parsed[0].food.nutrients.FIBTG}`
         } else {
             img = (
                 <p>Not Found</p>

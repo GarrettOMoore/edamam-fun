@@ -94,6 +94,24 @@ class App extends Component {
   }
 
   render(){
+    let user = Object.assign({}, this.state.user)
+    let contents;
+    if (user.name) {
+      contents = (
+      <>
+      <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
+      <Route path='/mypantry' render={()=><Pantry user={user}logout={this.logout}/>}/>
+      </>
+      )
+    } else {
+      contents = (
+        <>
+      <Route exact path ='/' render={()=><Login />}/>
+      <Route exact path ='/mypantry' render={()=><Login />}/>
+      <Route exaxt path ='/search' render={()=><Login/>}/>
+        </>
+      )
+    }
   return (
     <Router>
     <div className="App">
@@ -107,9 +125,8 @@ class App extends Component {
           <Link className='nav-text'to='/signup'>Sign Up</Link>
         </nav>
       </div>
+      {contents}
         <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/search' render={()=><Search />} />
-        <Route exact path='/mypantry' render={()=><Pantry/>} />
         <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>
