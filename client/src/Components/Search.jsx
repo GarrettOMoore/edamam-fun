@@ -7,14 +7,24 @@ class Search extends Component {
         this.state = {
             data: {},
             hasData: false,
-            name: ''
+            name: '',
+            quantity: null
         }
-        this.handleChange = this.handleChange.bind(this)
+        this.handleQuantityChange = this.handleQuantityChange.bind(this)
+        this.handleNameChange = this.handleNameChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
-    handleChange(e){
+    handleNameChange(e){
         this.setState({
             name: e.target.value
+        })
+    }
+
+    handleQuantityChange(e){
+        this.setState({
+            quantity: e.target.value
         })
     }
 
@@ -30,6 +40,23 @@ class Search extends Component {
         })
       }
     
+      handleSubmit(e)  {
+          console.log("IN SUBMIT")
+        e.preventDefault();
+        axios.post('/mypantry', {
+            name: this.state.name,
+            quantity: this.state.quantity,
+            image: this.state.image
+        }).then( res => {
+          if (res.data.type === 'error') {
+          } else {
+
+              this.props.history.push('/mypantry')
+          }
+        }).catch( err => {
+            console.log(err)
+        })
+      }
 
     render() {
         let img;
@@ -42,7 +69,7 @@ class Search extends Component {
                 <>
                 <img className='food-pic' width={'10%'} height={'5%'}src={imageLink} alt='Searched for Food Item'/> <br/>
                 <section className='add-box'>
-                <select>Quantity: 
+                <select onChange={this.handleQuantityChange}>Quantity: 
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -51,7 +78,7 @@ class Search extends Component {
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
-                <button>Add to Pantry</button>
+                <button onClick={this.handleSubmit}>Add to Pantry</button>
                 </section>
                 </>
             )
@@ -66,7 +93,7 @@ class Search extends Component {
         return(
             <section className='search-box'>
             <h3>Search by ingredient: </h3>
-            <input onChange={this.handleChange}name='name' type='text'/>
+            <input onChange={this.handleNameChange}name='name' type='text'/>
             <button onClick={this.handleClick}>Submit!</button> <br/>
             {img}
             <p>{text}</p>
