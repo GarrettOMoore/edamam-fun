@@ -40,7 +40,7 @@ class Search extends Component {
             imageLink = this.state.data.parsed[0].food.image
             img = (
                 <>
-                <img className='food-pic' width={'10%'} height={'5%'}src={imageLink}/> <br/>
+                <img className='food-pic' width={'10%'} height={'5%'}src={imageLink} alt='Searched for Food Item'/> <br/>
                 <section className='add-box'>
                 <select>Quantity: 
                     <option value="1">1</option>

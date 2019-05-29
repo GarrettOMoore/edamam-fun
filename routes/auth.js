@@ -15,9 +15,7 @@ router.post('/signup', (req, res) => {
 			let user = new User ({
 				name: req.body.name,
 				email: req.body.email,
-				password: req.body.password,
-				city: req.body.city,
-				state: req.body.state
+				password: req.body.password
 			})
 			 user.save( (err, user) => {
 				if (err) {
@@ -37,24 +35,25 @@ router.post('/signup', (req, res) => {
 
 // Route for login
 router.post('/login', (req, res) => {
+	console.log("THIS IS THE SUBMITTED PASSWORD!",req.body.password)
 	// Find user in database.
 	User.findOne({
 		email: req.body.email
 	}, (err, user) => {
-  	// If no user - Return error.
+  // If no user - Return error.
 		if (!user) {
 			res.json({type: 'error', message: 'Account not found'})
 	} else {
-			// If user - Check authentication.
+	// If user - Check authentication.		
 			if ( user.authenticated(req.body.password) )	{
-				// If authenticated - Sign in token. <-- Login step.
+	// If authenticated - Sign in token. <-- Login step.
 				var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
 					expiresIn: "1d"
 				});
-				// Return the token.
+  // Return the token.
 				res.json({type: 'success', user: user.toObject(), token})
 			} else {
-				res.status(401).json({type: 'error', message: 'Authentication failure' })
+				res.json({type: 'error', message: 'Authentication failure',  })
 			}
 	  }
   })

@@ -16,8 +16,7 @@ class App extends Component {
       token: '',
       user: null,
       errorMessage: '',
-      lockedResult: '',
-      data: []
+      lockedResult: ''
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
@@ -59,22 +58,15 @@ class App extends Component {
 
   componentDidMount() {
     this.checkForLocalToken();
-    axios.get('/explore').then( res => {
-      this.setState({
-        data: res.data
-      })
-    })
   }
 
   liftTokenToState ({token, user}) {
- 
+    console.log("INSIDE LIFT TOKEN");
     this.setState({
       token: token,
       user: user
     })
   }
-
-
 
   logout () {
     // Remove the token from localStorage
@@ -100,6 +92,7 @@ class App extends Component {
       })
     })
   }
+
   render(){
   return (
     <Router>
