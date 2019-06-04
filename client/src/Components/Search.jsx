@@ -46,6 +46,7 @@ class Search extends Component {
           console.log("IN SUBMIT")
         e.preventDefault();
         axios.post('/pantry', {
+            id: this.props.user,
             name: this.state.name,
             quantity: this.state.quantity,
             image: this.state.image

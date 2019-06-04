@@ -18,14 +18,14 @@ router.post('/', (req, res) => {
 		})
 	})
 
-// router.get('/:id', (req, res) => {
-// 	Pantry.find({user_id: req.params.id}, (err, items) => {
-// 			if (!err) {
-// 				res.status(200).json(items)
-// 			} else {
-// 				res.status(500).json({err})
-// 			}
-// 		});
-// 	});
+router.get('/:id', (req, res) => {
+	Pantry.find({user_id: req.params.id}, (err, items) => {
+			if (!err) {
+				res.status(200).json(items)
+			} else {
+				res.status(500).json({err})
+			}
+		});
+	});
 
 module.exports = router;
