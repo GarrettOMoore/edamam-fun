@@ -36,3 +36,13 @@
 .add-box {
   margin-top: 2em;
 }
+
+.pantry-item {
+  margin-top: 3em;
+  display: inline-block;
+}
+
+.pantry-pic {
+  border: 2px solid #282c34;
+  border-radius: 50%;
+}

@@ -22,10 +22,10 @@ class Pantry extends Component {
     let allItems = Array.from(this.state.data)
     let pantryItems = allItems.map((item) => {
         return (
-            <>
-            <img className='food-pic' width={'10%'} height={'5%'}src={item.image} alt={item.name}/> 
-            <p>{item.name} x{item.quantity}</p>
-            </>
+            <div className='pantry-item'>
+            <img className='pantry-pic' width={'40%'} height={'30%'}src={item.image} alt={item.name}/> 
+            <h3>{item.name} x{item.quantity}</h3>
+            </div>
         )
     })
 
@@ -33,7 +33,7 @@ class Pantry extends Component {
             <>
             <p className='username'>Hello, {this.props.user.name}! </p>
             <p className='logout'>Not you?  <a href='/login'onClick={this.props.logout}>Log out!</a></p>
-            <p>{this.state.data.name}</p>
+            <h2>My Pantry</h2>
             {pantryItems}
             </>
         )
