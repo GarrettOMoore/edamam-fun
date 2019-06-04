@@ -8,7 +8,8 @@ class Search extends Component {
             data: {},
             hasData: false,
             name: '',
-            quantity: null
+            quantity: null,
+            image: ''
         }
         this.handleQuantityChange = this.handleQuantityChange.bind(this)
         this.handleNameChange = this.handleNameChange.bind(this)
@@ -32,7 +33,8 @@ class Search extends Component {
         axios.get(`https://api.edamam.com/api/food-database/parser?ingr=${this.state.name}&app_id=08ac0881&app_key=809d26675d89b3440763df617e564ce0`).then((res)=>{
           this.setState({
             data: res.data,
-            hasData: true
+            hasData: true,
+            image: res.data.parsed[0].food.image
           })
 
         }).catch((err)=>{
@@ -43,15 +45,15 @@ class Search extends Component {
       handleSubmit(e)  {
           console.log("IN SUBMIT")
         e.preventDefault();
-        axios.post('/mypantry', {
+        axios.post('/pantry', {
             name: this.state.name,
             quantity: this.state.quantity,
             image: this.state.image
         }).then( res => {
           if (res.data.type === 'error') {
+              console.log("ERROR")
           } else {
-
-              this.props.history.push('/mypantry')
+            this.props.history.push('/mypantry')
           }
         }).catch( err => {
             console.log(err)
