@@ -38,8 +38,8 @@ class Pantry extends Component {
             <div key={index} className='pantry-item'>
             <img className='pantry-pic' width={'40%'} height={'30%'}src={item.image} alt={item.name}/> 
             <h3 className='pantry-item-name'>{item.name}</h3>
-            <p>Quantity: {item.quantity}</p>
-            <button>Edit</button> 
+            {/* <p>Quantity: {item.quantity}</p> */}
+            {/* <button>Edit</button>  */}
             <button onClick={()=>{this.deleteItem(item._id)}}>Delete</button>
             </div>
         )
