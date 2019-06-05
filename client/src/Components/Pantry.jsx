@@ -8,22 +8,26 @@ class Pantry extends Component {
             data: {},
             didDelete: false
         }
+        this.getItems = this.getItems.bind(this)
         this.deleteItem = this.deleteItem.bind(this)
     }
 
-     componentDidMount() {
+    getItems = () => {
         let user = Object.assign({},this.props.user)
         axios.get(`/pantry/${user._id}`).then( res => {
           this.setState({
             data: res.data,
           })
         })
+    }
+
+     componentDidMount() {
+        this.getItems()
       }
 
       deleteItem = (id) => {
-          console.log("IN DELETE")
         axios.get(`/pantry/delete/${id}`)
-        .then(console.log("deleted"))
+        .then( this.getItems() )
         .catch ((err) => console.log(err))
       }
 
@@ -36,7 +40,7 @@ class Pantry extends Component {
             <h3 className='pantry-item-name'>{item.name}</h3>
             <p>Quantity: {item.quantity}</p>
             <button>Edit</button> 
-            <button onClick={(e)=>{this.deleteItem(item._id)}}>Delete</button>
+            <button onClick={()=>{this.deleteItem(item._id)}}>Delete</button>
             </div>
         )
     })

@@ -53,9 +53,7 @@ class Search extends Component {
         }).then( res => {
           if (res.data.type === 'error') {
               console.log("ERROR")
-          } else {
-            this.props.history.push('/mypantry')
-          }
+          } 
         }).catch( err => {
             console.log(err)
         })

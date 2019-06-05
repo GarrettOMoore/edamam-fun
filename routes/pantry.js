@@ -31,4 +31,5 @@ router.get('/:id', (req, res) => {
 router.get('/delete/:id', (req, res) => {
 	Pantry.deleteOne({_id: req.params.id}, (err) => {})
 })
+
 module.exports = router;
