@@ -5,8 +5,10 @@ class Pantry extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: {}
+            data: {},
+            didDelete: false
         }
+        this.deleteItem = this.deleteItem.bind(this)
     }
 
      componentDidMount() {
@@ -18,16 +20,23 @@ class Pantry extends Component {
         })
       }
 
+      deleteItem = (id) => {
+          console.log("IN DELETE")
+        axios.get(`/pantry/delete/${id}`)
+        .then(console.log("deleted"))
+        .catch ((err) => console.log(err))
+      }
+
     render() {
     let allItems = Array.from(this.state.data)
-    let pantryItems = allItems.map((item) => {
+    let pantryItems = allItems.map((item, index) => {
         return (
-            <div className='pantry-item'>
+            <div key={index} className='pantry-item'>
             <img className='pantry-pic' width={'40%'} height={'30%'}src={item.image} alt={item.name}/> 
             <h3 className='pantry-item-name'>{item.name}</h3>
             <p>Quantity: {item.quantity}</p>
             <button>Edit</button> 
-            <button>Delete</button>
+            <button onClick={(e)=>{this.deleteItem(item._id)}}>Delete</button>
             </div>
         )
     })
