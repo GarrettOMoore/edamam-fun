@@ -24,7 +24,10 @@ class Pantry extends Component {
         return (
             <div className='pantry-item'>
             <img className='pantry-pic' width={'40%'} height={'30%'}src={item.image} alt={item.name}/> 
-            <h3>{item.name} x{item.quantity}</h3>
+            <h3 className='pantry-item-name'>{item.name}</h3>
+            <p>Quantity: {item.quantity}</p>
+            <button>Edit</button> 
+            <button>Delete</button>
             </div>
         )
     })
@@ -32,8 +35,8 @@ class Pantry extends Component {
         return(
             <>
             <p className='username'>Hello, {this.props.user.name}! </p>
-            <p className='logout'>Not you?  <a href='/login'onClick={this.props.logout}>Log out!</a></p>
-            <h2>My Pantry</h2>
+            <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
+            <h1>My Pantry</h1>
             {pantryItems}
             </>
         )

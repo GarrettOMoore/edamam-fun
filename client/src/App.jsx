@@ -7,7 +7,7 @@ import SignUp from './Components/SignUp'
 import Pantry from './Components/Pantry'
 import './App.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Logo from './Images/truss_test.jpeg'
+import Logo from './Images/mixte_free.jpeg'
 
 class App extends Component {
   constructor(props) {

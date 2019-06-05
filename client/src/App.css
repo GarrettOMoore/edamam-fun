@@ -26,7 +26,9 @@
 }
 
 .logo {
-  margin-top: 3em;
+  margin-top: 1em;
+  width: 25%;
+  height: 25%;
 }
 
 .nav-box {
@@ -45,4 +47,39 @@
 .pantry-pic {
   border: 2px solid #282c34;
   border-radius: 50%;
+}
+
+.pantry-item-name {
+  font-size: 1.6em;
+}
+.nav-text {
+  font-size: 2em;
+  margin: 0 1em 0 1em;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  color: #282c34;
+  font-family: 'Titillium Web', sans-serif; 
+}
+
+.nav-text:hover {
+  border-bottom: 2px solid #282c34;
+}
+
+a {
+  text-decoration: none;
+  color: #282c34;
+  border-bottom: 2px solid transparent;
+}
+
+a:hover {
+  border-bottom: 2px solid #282c34;
+}
+
+p {
+  font-size: 1.2em;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Oswald', sans-serif;
 }
