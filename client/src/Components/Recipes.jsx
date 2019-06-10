@@ -25,9 +25,9 @@ class Recipes extends Component {
         let recipes = allRecipes.map((recipe, index) => {
             return(
                 <>
-                <p>{recipe.recipe.label}</p>
-                <img className='pantry-pic'width={'20%'} height={'10%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
-                <a href={recipe.recipe.url}>Link</a>
+                  <p>{recipe.recipe.label}</p>
+                  <img className='pantry-pic'width={'20%'} height={'10%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
+                  <a href={recipe.recipe.url}>Link</a>
                 </>
             )
         })

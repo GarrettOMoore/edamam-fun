@@ -6,7 +6,8 @@ class Pantry extends Component {
         super(props)
         this.state = {
             data: {},
-            didDelete: false
+            didDelete: false,
+            queue: []
         }
         this.getItems = this.getItems.bind(this)
         this.deleteItem = this.deleteItem.bind(this)
@@ -31,6 +32,14 @@ class Pantry extends Component {
         .catch ((err) => console.log(err))
       }
 
+        addToQueue(name){
+          let newQueue = this.state.queue;
+          newQueue.push(name);
+          this.setState({
+            queue: newQueue
+          })
+      }
+
     render() {
     let allItems = Array.from(this.state.data)
     let pantryItems = allItems.map((item, index) => {
@@ -41,6 +50,7 @@ class Pantry extends Component {
             {/* <p>Quantity: {item.quantity}</p> */}
             {/* <button>Edit</button>  */}
             <button onClick={()=>{this.deleteItem(item._id)}}>Delete</button>
+            <button onClick={()=>{this.addToQueue(item.name)}}>Add to Recipe Queue</button>
             </div>
         )
     })
