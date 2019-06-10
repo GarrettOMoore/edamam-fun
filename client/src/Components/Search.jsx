@@ -30,15 +30,17 @@ class Search extends Component {
     }
 
     handleClick = (e) => {
-        axios.get(`https://api.edamam.com/api/food-database/parser?ingr=${this.state.name}&app_id={process.env.FOOD_ID}&app_key={process.env.FOOD_KEY}`).then((res)=>{
-          this.setState({
-            data: res.data,
-            hasData: true,
-            image: res.data.parsed[0].food.image
-          })
-
+        axios.post('/ingredients', {
+            name: this.state.name
+        }).then((res) => {
+            this.setState({
+                data: res.data.data,
+                name: res.data.text,
+                hasData: true,
+                image: res.data.data.parsed[0].food.image
+              })
         }).catch((err)=>{
-          console.log(err)
+          console.log("ERROR: ", err)
         })
       }
     
@@ -68,24 +70,15 @@ class Search extends Component {
             imageLink = this.state.data.parsed[0].food.image
             img = (
                 <>
-                <img className='food-pic' width={'10%'} height={'5%'}src={imageLink} alt='Searched for Food Item'/> <br/>
-                <section className='add-box'>
-                <select onChange={this.handleQuantityChange}>Quantity: 
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-                <button onClick={this.handleSubmit}>Add to Pantry</button>
-                </section>
+                  <img className='food-pic' width={'10%'} height={'5%'}src={imageLink} alt='Searched for Food Item'/> <br/>
+                  <section className='add-box'>
+                    <button onClick={this.handleSubmit}>Add to Pantry</button>
+                  </section>
                 </>
             )
-            text = this.state.name
-            nutrients.fat = `Fat: ${this.state.data.parsed[0].food.nutrients.FAT}`
-            nutrients.fib = `Fiber: ${this.state.data.parsed[0].food.nutrients.FIBTG}`
+            text = (
+                <p>{this.state.data.parsed[0].food.text}</p>
+            )
         } else {
             img = (
                 <p>Not Found</p>
@@ -97,9 +90,7 @@ class Search extends Component {
             <input onChange={this.handleNameChange}name='name' type='text'/>
             <button onClick={this.handleClick}>Submit!</button> <br/>
             {img}
-            <p>{text}</p>
-            <p>{nutrients.fat}</p>
-            <p>{nutrients.fib}</p>
+            {text}
             </section>
         )
     }

@@ -32,35 +32,50 @@ class Pantry extends Component {
         .catch ((err) => console.log(err))
       }
 
-        addToQueue(name){
-          let newQueue = this.state.queue;
-          newQueue.push(name);
-          this.setState({
-            queue: newQueue
-          })
+      addToQueue(name){
+        // let noSpace = name.replace(/\s/g, '');
+        let newQueue = this.state.queue;
+        newQueue.push(name);
+        this.setState({
+          queue: newQueue
+        })
       }
 
     render() {
+    let queueItems = this.state.queue.map((name) => {
+      return(
+        <div className='queue-box'>
+          <ol>
+            <li className='queue-item'>{name}</li>
+            <button className='remove-frm-queue'>Remove</button>
+          </ol>
+        </div>
+      )
+    })
+
     let allItems = Array.from(this.state.data)
     let pantryItems = allItems.map((item, index) => {
         return (
             <div key={index} className='pantry-item'>
-            <img className='pantry-pic' width={'40%'} height={'30%'}src={item.image} alt={item.name}/> 
-            <h3 className='pantry-item-name'>{item.name}</h3>
-            {/* <p>Quantity: {item.quantity}</p> */}
-            {/* <button>Edit</button>  */}
-            <button onClick={()=>{this.deleteItem(item._id)}}>Delete</button>
-            <button onClick={()=>{this.addToQueue(item.name)}}>Add to Recipe Queue</button>
+              <img className='pantry-pic' width={'40%'} height={'30%'}src={item.image} alt={item.name}/> 
+              <h3 className='pantry-item-name'>{item.name}</h3>
+              <button onClick={()=>{this.deleteItem(item._id)}}>Delete</button>
+              <button onClick={()=>{this.addToQueue(item.name)}}>Add to Recipe Queue</button>
             </div>
         )
     })
 
         return(
             <>
-            <p className='username'>Hello, {this.props.user.name}! </p>
-            <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
-            <h1>My Pantry</h1>
-            {pantryItems}
+              <p className='username'>Hello, {this.props.user.name}! </p>
+              <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
+              <h1>My Pantry</h1>
+              <div className='recipe-box'>
+                <h3>Recipe Queue:</h3>
+                {queueItems}
+                <button>Find Recipes</button>
+              </div>
+              {pantryItems}
             </>
         )
     }

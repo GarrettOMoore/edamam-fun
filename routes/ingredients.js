@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-router.get('/', (req,res) => {
-	axios.get(`https://api.edamam.com/search?q=Chard&BalsamicVinegar&app_id=${process.env.RECIPE_ID}&app_key=${process.env.RECIPE_KEY}`, {
+router.post('/', (req,res) => {
+	axios.get(`https://api.edamam.com/api/food-database/parser?ingr=${req.body.name}&app_id=${process.env.FOOD_ID}&app_key=${process.env.FOOD_KEY}`, {
   }).then((result)=> {
-		console.log(result.data)
+			console.log(result.data)
       res.json({data: result.data})
 }).catch((err)=> {
 	console.log(err)

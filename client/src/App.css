@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 1em;
 }
 
 .App-logo {
@@ -82,4 +83,29 @@ p {
 
 h1, h2, h3, h4, h5 {
   font-family: 'Oswald', sans-serif;
+}
+
+.recipe-box {
+  margin-left: 2em;
+  border: 2px solid #282c34;
+  height: 13em;
+  width: 30%;
+  position: fixed;
+  background-color: #F5D1FF;
+  opacity: 0.8;
+}
+
+.queue-box {
+  /* width: 5em;
+  height: 5em;
+  margin: 2em;
+  display: inline-block; */
+}
+
+.queue-item {
+  display: inline-block;
+}
+
+.remove-frm-queue {
+  margin-left: 1em;
 }

@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(helmet());
 app.use('/pantry', require('./routes/pantry'));
 app.use('/recipes', require('./routes/recipes'));
+app.use('/ingredients', require('./routes/ingredients'));
 
 //Rate Limiting
 const loginLimiter = new RateLimit ({
