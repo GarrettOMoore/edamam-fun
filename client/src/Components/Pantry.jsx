@@ -7,10 +7,12 @@ class Pantry extends Component {
         this.state = {
             data: {},
             didDelete: false,
-            queue: []
+            queue: [],
+            queryString: ''
         }
         this.getItems = this.getItems.bind(this)
         this.deleteItem = this.deleteItem.bind(this)
+        this.resetQueue = this.resetQueue.bind(this)
     }
 
     getItems = () => {
@@ -33,12 +35,36 @@ class Pantry extends Component {
       }
 
       addToQueue(name){
-        // let noSpace = name.replace(/\s/g, '');
-        let newQueue = this.state.queue;
-        newQueue.push(name);
+        if (this.state.queue.length < 3 && this.state.queue.indexOf(name) === -1) {
+          let newQueue = this.state.queue;
+          newQueue.push(name);
+          this.setState({
+            queue: newQueue
+          })
+        }
+      }
+
+      resetQueue(){
         this.setState({
-          queue: newQueue
+          queue: []
         })
+      }
+
+      removeItemFromQueue(name){
+        let index = this.state.queue.indexOf(name);
+        this.state.queue.splice(index, 1)
+        this.setState({
+          queue: this.state.queue
+        })
+      }
+
+      handleRecipeSubmit(){
+        if (this.state.queue.length > 0) {
+          let queryStr = this.state.queue.join('&').replace(/\s/g, '')
+          this.setState({
+            queryString: queryStr
+          })
+        }
       }
 
     render() {
@@ -47,7 +73,7 @@ class Pantry extends Component {
         <div className='queue-box'>
           <ol>
             <li className='queue-item'>{name}</li>
-            <button className='remove-frm-queue'>Remove</button>
+            <button onClick={()=>{this.removeItemFromQueue(name)}}className='remove-frm-queue'>Remove</button>
           </ol>
         </div>
       )
@@ -71,9 +97,10 @@ class Pantry extends Component {
               <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
               <h1>My Pantry</h1>
               <div className='recipe-box'>
-                <h3>Recipe Queue:</h3>
+                <h3>Recipe Queue: {this.state.queue.length}</h3>
                 {queueItems}
-                <button>Find Recipes</button>
+                <button onClick={()=>{this.resetQueue()}}>Empty Queue</button>
+                <button onClick={()=>{this.handleRecipeSubmit()}}>Find Recipes</button>
               </div>
               {pantryItems}
             </>
