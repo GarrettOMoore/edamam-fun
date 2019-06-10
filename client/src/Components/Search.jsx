@@ -30,7 +30,7 @@ class Search extends Component {
     }
 
     handleClick = (e) => {
-        axios.get(`https://api.edamam.com/api/food-database/parser?ingr=${this.state.name}&app_id=08ac0881&app_key=809d26675d89b3440763df617e564ce0`).then((res)=>{
+        axios.get(`https://api.edamam.com/api/food-database/parser?ingr=${this.state.name}&app_id={process.env.FOOD_ID}&app_key={process.env.FOOD_KEY}`).then((res)=>{
           this.setState({
             data: res.data,
             hasData: true,

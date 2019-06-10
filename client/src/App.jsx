@@ -5,6 +5,7 @@ import Search from './Components/Search'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import Pantry from './Components/Pantry'
+import Recipes from './Components/Recipes'
 import './App.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Logo from './Images/mixte_free.jpeg'
@@ -121,12 +122,14 @@ class App extends Component {
           <Link className='nav-text'to='/'>About</Link> | {' '}
           <Link className='nav-text'to='/search'>Search</Link> | {' '}
           <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
+          <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
           <Link className='nav-text'to='/login'>Log In</Link> | {' '}
           <Link className='nav-text'to='/signup'>Sign Up</Link>
         </nav>
       </div>
       {contents}
         <Route exact path='/' render={()=><About/>} />
+        <Route exact path='/recipes' render={()=><Recipes/>} />
         <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>

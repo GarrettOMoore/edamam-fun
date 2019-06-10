@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "cloudinary": "^1.14.0",
     "dotenv": "^8.0.0",
@@ -21,6 +22,7 @@
     "mongoose": "^5.5.11",
     "multer": "^1.4.1",
     "multer-storage-cloudinary": "^2.2.1",
+    "spotify-node-applescript": "^1.1.1",
     "upload": "^0.1.3"
   }
 }
