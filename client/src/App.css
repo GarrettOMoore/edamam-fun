@@ -1,6 +1,8 @@
 .App {
   text-align: center;
   margin: 1em;
+  /* background: url('./Images/eggs.jpg') no-repeat center center fixed;  */
+  background-size: auto;
 }
 
 .App-logo {
@@ -96,9 +98,34 @@ h1, h2, h3, h4, h5 {
 }
 
 .queue-item {
+  letter-spacing: 0.1em;
+  font-size: 1.1em;
   display: inline-block;
+  font-weight: bolder;
 }
 
 .remove-frm-queue {
+  border: 2px solid #282c34;
   margin-left: 1em;
+}
+
+.queue-btn-box {
+  margin-left: 5em;
+  margin-bottom: 0.5em;
+  position: absolute;
+  bottom: 0;
+}
+
+.queue-btn-box button {
+  border: 2px solid #282c34;
+  margin: 0.2em;
+}
+
+.remove-btn button {
+  border: 2px solid #282c34;
+}
+
+.queue-header {
+  letter-spacing: 0.2em;
+  border-bottom: 2px solid #282c34;
 }

@@ -5,27 +5,17 @@ class Pantry extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: {},
+            data: this.props.pantryData,
             didDelete: false,
             queue: [],
-            queryString: ''
+            // queryString: ''
         }
-        this.getItems = this.getItems.bind(this)
         this.deleteItem = this.deleteItem.bind(this)
         this.resetQueue = this.resetQueue.bind(this)
     }
 
-    getItems = () => {
-        let user = Object.assign({},this.props.user)
-        axios.get(`/pantry/${user._id}`).then( res => {
-          this.setState({
-            data: res.data,
-          })
-        })
-    }
-
      componentDidMount() {
-        this.getItems()
+        // this.getItems()
       }
 
       deleteItem = (id) => {
@@ -50,27 +40,32 @@ class Pantry extends Component {
         })
       }
 
+      // handleRecipeSubmit(){
+      //   if (this.state.queue.length > 0) {
+      //     let queryStr = this.state.queue.join('&').replace(/\s/g, '');
+      //     console.log(queryStr);
+      //     this.setState({
+      //       queryString: queryStr
+      //     })
+      //   }
+      // }
+
       removeItemFromQueue(name){
         let index = this.state.queue.indexOf(name);
         this.state.queue.splice(index, 1)
         this.setState({
           queue: this.state.queue
         })
+        this.handleRecipeSubmit();
       }
 
-      handleRecipeSubmit(){
-        if (this.state.queue.length > 0) {
-          let queryStr = this.state.queue.join('&').replace(/\s/g, '')
-          this.setState({
-            queryString: queryStr
-          })
-        }
-      }
 
     render() {
-    let queueItems = this.state.queue.map((name) => {
+      let queueItems;
+    if (this.state.queue.length > 0) {
+     queueItems = this.state.queue.map((name, i) => {
       return(
-        <div className='queue-box'>
+        <div key={i} className='queue-box'>
           <ol>
             <li className='queue-item'>{name}</li>
             <button onClick={()=>{this.removeItemFromQueue(name)}}className='remove-frm-queue'>Remove</button>
@@ -78,6 +73,11 @@ class Pantry extends Component {
         </div>
       )
     })
+  } else {
+    queueItems = (
+      <p>Add up to three ingredients.</p>
+    )
+  }
 
     let allItems = Array.from(this.state.data)
     let pantryItems = allItems.map((item, index) => {
@@ -97,10 +97,12 @@ class Pantry extends Component {
               <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
               <h1>My Pantry</h1>
               <div className='recipe-box'>
-                <h3>Recipe Queue: {this.state.queue.length}</h3>
+                <h3 className='queue-header'>Recipe Queue: {this.state.queue.length}</h3>
                 {queueItems}
-                <button onClick={()=>{this.resetQueue()}}>Empty Queue</button>
-                <button onClick={()=>{this.handleRecipeSubmit()}}>Find Recipes</button>
+                <section className='queue-btn-box'>
+                  <button onClick={()=>{this.resetQueue()}}>Empty Queue</button>
+                  <button onClick={()=>{this.props.submitRecipe(this.state.queue)}}>Find Recipes</button>
+                </section>
               </div>
               {pantryItems}
             </>

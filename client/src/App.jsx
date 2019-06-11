@@ -17,12 +17,16 @@ class App extends Component {
       token: '',
       user: null,
       errorMessage: '',
-      lockedResult: ''
+      lockedResult: '',
+      pantryData: {},
+      queryString: ''
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
     this.logout = this.logout.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.getItems = this.getItems.bind(this)
+    this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this)
   }
 
   checkForLocalToken () {
@@ -52,6 +56,7 @@ class App extends Component {
               token: res.data.token,
               user: res.data.user
             })
+            this.getItems();
           }
         })
     }
@@ -60,6 +65,15 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
   }
+
+  getItems() {
+    let user = Object.assign({},this.state.user)
+    axios.get(`/pantry/${user._id}`).then( res => {
+      this.setState({
+        pantryData: res.data,
+      })
+    })
+}
 
   liftTokenToState ({token, user}) {
     console.log("INSIDE LIFT TOKEN");
@@ -94,6 +108,17 @@ class App extends Component {
     })
   }
 
+  handleRecipeSubmit(queue){
+    console.log("In Recipe Submit", queue)
+    if (queue.length > 0) {
+      let queryStr = queue.join('&').replace(/\s/g, '');
+      console.log(queryStr);
+      this.setState({
+        queryString: queryStr
+      })
+    }
+  }
+
   render(){
     let user = Object.assign({}, this.state.user)
     let contents;
@@ -101,7 +126,7 @@ class App extends Component {
       contents = (
       <>
       <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
-      <Route path='/mypantry' render={()=><Pantry user={user}logout={this.logout}/>}/>
+      <Route path='/mypantry' render={()=><Pantry user={user}pantryData={this.state.pantryData}submitRecipe={()=>{this.handleRecipeSubmit()}}logout={this.logout}/>}/>
       </>
       )
     } else {

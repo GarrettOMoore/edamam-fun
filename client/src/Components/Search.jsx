@@ -65,7 +65,6 @@ class Search extends Component {
         let img;
         let text;
         let imageLink;
-        let nutrients = {};
         if (this.state.hasData === true) {
             imageLink = this.state.data.parsed[0].food.image
             img = (
