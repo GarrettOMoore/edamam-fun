@@ -60,7 +60,6 @@ class Search extends Component {
             console.log(err)
         })
       }
-
     render() {
         let img;
         let text;
@@ -70,6 +69,7 @@ class Search extends Component {
             img = (
                 <>
                   <img className='food-pic' width={'10%'} height={'5%'}src={imageLink} alt='Searched for Food Item'/> <br/>
+                  <p>{this.state.data.text}</p>
                   <section className='add-box'>
                     <button onClick={this.handleSubmit}>Add to Pantry</button>
                   </section>

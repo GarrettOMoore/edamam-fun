@@ -14,13 +14,13 @@ class Pantry extends Component {
         this.resetQueue = this.resetQueue.bind(this)
     }
 
-     componentDidMount() {
-        // this.getItems()
-      }
+    componentWillReceiveProps(nextProps) {
+      // this.setState({ data: nextProps.data });  
+    }
 
       deleteItem = (id) => {
         axios.get(`/pantry/delete/${id}`)
-        .then( this.getItems() )
+        .then( this.props.getPantryItems() )
         .catch ((err) => console.log(err))
       }
 
@@ -40,16 +40,6 @@ class Pantry extends Component {
         })
       }
 
-      // handleRecipeSubmit(){
-      //   if (this.state.queue.length > 0) {
-      //     let queryStr = this.state.queue.join('&').replace(/\s/g, '');
-      //     console.log(queryStr);
-      //     this.setState({
-      //       queryString: queryStr
-      //     })
-      //   }
-      // }
-
       removeItemFromQueue(name){
         let index = this.state.queue.indexOf(name);
         this.state.queue.splice(index, 1)
@@ -61,7 +51,7 @@ class Pantry extends Component {
 
 
     render() {
-      let queueItems;
+    let queueItems;
     if (this.state.queue.length > 0) {
      queueItems = this.state.queue.map((name, i) => {
       return(

@@ -25,7 +25,7 @@ class App extends Component {
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
     this.logout = this.logout.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.getItems = this.getItems.bind(this)
+    this.getPantryItems = this.getPantryItems.bind(this)
     this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this)
   }
 
@@ -56,7 +56,7 @@ class App extends Component {
               token: res.data.token,
               user: res.data.user
             })
-            this.getItems();
+            this.getPantryItems();
           }
         })
     }
@@ -66,8 +66,9 @@ class App extends Component {
     this.checkForLocalToken();
   }
 
-  getItems() {
+  getPantryItems() {
     let user = Object.assign({},this.state.user)
+    console.log("in get items fun")
     axios.get(`/pantry/${user._id}`).then( res => {
       this.setState({
         pantryData: res.data,
@@ -126,7 +127,7 @@ class App extends Component {
       contents = (
       <>
       <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
-      <Route path='/mypantry' render={()=><Pantry user={user}pantryData={this.state.pantryData}submitRecipe={()=>{this.handleRecipeSubmit()}}logout={this.logout}/>}/>
+      <Route path='/mypantry' render={(props)=><Pantry user={user}pantryData={this.state.pantryData}getPantryItems={this.getPantryItems}submitRecipe={this.handleRecipeSubmit}{...props}logout={this.logout}/>}/>
       </>
       )
     } else {
@@ -154,7 +155,7 @@ class App extends Component {
       </div>
       {contents}
         <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/recipes' render={()=><Recipes/>} />
+        <Route exact path='/recipes' render={()=><Recipes queryStr={this.state.queryString}/>} />
         <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>

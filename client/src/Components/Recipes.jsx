@@ -12,7 +12,9 @@ class Recipes extends Component {
     }
 
     componentDidMount(){
-        axios.get('/recipes').then((res) => {
+        axios.post('/recipes', {
+            query: this.props.queryStr
+        }).then((res) => {
             this.setState({
                 data: res.data.data.hits
             })
@@ -24,11 +26,11 @@ class Recipes extends Component {
         let allRecipes = Array.from(this.state.data);
         let recipes = allRecipes.map((recipe, i) => {
             return(
-                <>
-                  <p> key={i}{recipe.recipe.label}</p>
-                  <img key={i} className='pantry-pic'width={'20%'} height={'10%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
-                  <a key={i} href={recipe.recipe.url}>Link</a>
-                </>
+                <div key ={i} className='recipe-display-box'>
+                  <p>{recipe.recipe.label}</p>
+                  <img className='pantry-pic'width={'20%'} height={'10%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
+                  <a href={recipe.recipe.url}>Link to Recipe</a>
+                </div>
             )
         })
         return(
