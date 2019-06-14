@@ -8,10 +8,8 @@ class Search extends Component {
             data: {},
             hasData: false,
             name: '',
-            quantity: null,
             image: ''
         }
-        this.handleQuantityChange = this.handleQuantityChange.bind(this)
         this.handleNameChange = this.handleNameChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this)
@@ -23,19 +21,13 @@ class Search extends Component {
         })
     }
 
-    handleQuantityChange(e){
-        this.setState({
-            quantity: e.target.value
-        })
-    }
-
     handleClick = (e) => {
         axios.post('/ingredients', {
             name: this.state.name
         }).then((res) => {
             this.setState({
                 data: res.data.data,
-                name: res.data.text,
+                name: res.data.data.text,
                 hasData: true,
                 image: res.data.data.parsed[0].food.image
               })

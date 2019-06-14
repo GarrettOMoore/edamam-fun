@@ -14,10 +14,6 @@ class Pantry extends Component {
         this.resetQueue = this.resetQueue.bind(this)
     }
 
-    componentWillReceiveProps(nextProps) {
-      // this.setState({ data: nextProps.data });  
-    }
-
       deleteItem = (id) => {
         axios.get(`/pantry/delete/${id}`)
         .then( this.props.getPantryItems() )
