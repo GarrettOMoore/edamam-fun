@@ -70,14 +70,11 @@ class Search extends Component {
             text = (
                 <p>{this.state.data.parsed[0].food.text}</p>
             )
-        } else {
-            img = (
-                <p>Not Found</p>
-            )
-        }
+        } 
         return(
             <section className='search-box'>
             <h3>Search by ingredient: </h3>
+            <p>Ex. "Salmon", or "Garlic".</p>
             <input onChange={this.handleNameChange}name='name' type='text'/>
             <button onClick={this.handleClick}>Submit!</button> <br/>
             {img}

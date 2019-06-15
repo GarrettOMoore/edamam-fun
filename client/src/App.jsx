@@ -70,7 +70,6 @@ class App extends Component {
 
   getPantryItems() {
     let user = Object.assign({},this.state.user)
-    console.log("in get items fun")
     axios.get(`/pantry/${user._id}`).then( res => {
       this.setState({
         pantryData: res.data,

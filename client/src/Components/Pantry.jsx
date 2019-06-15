@@ -5,13 +5,27 @@ class Pantry extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: this.props.pantryData,
+            data: {},
             didDelete: false,
             queue: [],
             // queryString: ''
         }
         this.deleteItem = this.deleteItem.bind(this)
         this.resetQueue = this.resetQueue.bind(this)
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.pantryData !== prevProps.pantryData) {
+        this.setState({
+          data: this.props.pantryData
+        })
+      }
+    }
+
+    componentDidMount(){
+      this.setState({
+        data: this.props.pantryData
+      })
     }
 
       deleteItem = (id) => {
@@ -63,9 +77,11 @@ class Pantry extends Component {
       <p>Add up to three ingredients.</p>
     )
   }
-
+  let pantryItems;
+  
+  if (this.state.data.length > 0) {
     let allItems = Array.from(this.state.data)
-    let pantryItems = allItems.map((item, index) => {
+    pantryItems = allItems.map((item, index) => {
         return (
             <div key={index} className='pantry-item'>
               <img className='pantry-pic' width={'40%'} height={'30%'}src={item.image} alt={item.name}/> 
@@ -75,6 +91,11 @@ class Pantry extends Component {
             </div>
         )
     })
+  } else {
+    pantryItems = (
+      <p>Your Pantry is empty! </p>
+    )
+  }
 
         return(
             <>

@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React from 'react'
 
 const Recipes = (props) => {
         let allRecipes = Array.from(props.recipes);
+        console.log(allRecipes)
         let recipes = allRecipes.map((recipe, i) => {
             return(
                 <div key ={i} className='recipe-display-box'>
@@ -14,7 +14,7 @@ const Recipes = (props) => {
         })
         return(
             <div className='diet-box'>
-            <p>Recipes</p>
+            <h1>Recipes</h1>
             {recipes}
             </div>
         )
