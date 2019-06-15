@@ -19,7 +19,6 @@ class App extends Component {
       errorMessage: '',
       lockedResult: '',
       pantryData: {},
-      queryString: '',
       recipes: {}
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)

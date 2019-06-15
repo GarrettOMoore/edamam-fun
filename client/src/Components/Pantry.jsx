@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {BrowserRouter as Route, Link} from 'react-router-dom'
+import Recipes from './Recipes'
 
 class Pantry extends Component {
     constructor(props) {
@@ -107,7 +109,9 @@ class Pantry extends Component {
                 {queueItems}
                 <section className='queue-btn-box'>
                   <button onClick={()=>{this.resetQueue()}}>Empty Queue</button>
-                  <button onClick={()=>{this.props.submitRecipe(this.state.queue)}}>Find Recipes</button>
+                  <Link to='/recipes'><button onClick={()=>{this.props.submitRecipe(this.state.queue)}}>Find Recipes</button></Link>
+                  <Route path='/recipes'render={()=><Recipes/>}/>
+
                 </section>
               </div>
               {pantryItems}
