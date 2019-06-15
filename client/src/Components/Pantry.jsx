@@ -42,7 +42,6 @@ class Pantry extends Component {
         this.setState({
           queue: this.state.queue
         })
-        this.handleRecipeSubmit();
       }
 
 

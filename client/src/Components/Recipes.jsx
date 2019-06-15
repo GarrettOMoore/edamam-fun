@@ -1,29 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
-class Recipes extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: {},
-            vegetarian: false,
-            vegan: false
-        }
-    }
-
-    componentDidMount(){
-        axios.post('/recipes', {
-            query: this.props.queryStr
-        }).then((res) => {
-            this.setState({
-                data: res.data.data.hits
-            })
-        })
-        .catch((err) => console.log(err))
-    }
-
-    render() {
-        let allRecipes = Array.from(this.state.data);
+const Recipes = (props) => {
+        let allRecipes = Array.from(props.recipes);
         let recipes = allRecipes.map((recipe, i) => {
             return(
                 <div key ={i} className='recipe-display-box'>
@@ -40,6 +19,7 @@ class Recipes extends Component {
             </div>
         )
     }
-}
+
+
 
 export default Recipes

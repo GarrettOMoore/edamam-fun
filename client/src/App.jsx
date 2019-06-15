@@ -19,7 +19,8 @@ class App extends Component {
       errorMessage: '',
       lockedResult: '',
       pantryData: {},
-      queryString: ''
+      queryString: '',
+      recipes: {}
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
@@ -27,6 +28,7 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.getPantryItems = this.getPantryItems.bind(this)
     this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this)
+    // this.fetchRecipes = this.fetchRecipes.bind(this);
   }
 
   checkForLocalToken () {
@@ -109,16 +111,25 @@ class App extends Component {
     })
   }
 
+  fetchRecipes(qryStr){
+      axios.post('/recipes', {
+        query: qryStr
+    }).then((res) => {
+        this.setState({
+            recipes: res.data.data.hits
+        })
+    })
+    .catch((err) => console.log(err))
+    }
+
   handleRecipeSubmit(queue){
     console.log("In Recipe Submit", queue)
     if (queue.length > 0) {
       let queryStr = queue.join('&').replace(/\s/g, '');
-      console.log(queryStr);
-      this.setState({
-        queryString: queryStr
-      })
+      this.fetchRecipes(queryStr)
     }
   }
+
 
   render(){
     let user = Object.assign({}, this.state.user)
@@ -155,7 +166,7 @@ class App extends Component {
       </div>
       {contents}
         <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/recipes' render={()=><Recipes queryStr={this.state.queryString}/>} />
+        <Route exact path='/recipes' render={()=><Recipes recipes={this.state.recipes}/>} />
         <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>
