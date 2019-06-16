@@ -16,7 +16,7 @@ class Recipes extends Component {
           })
         }
       }
-      
+
     render() {
         let allRecipes = Array.from(this.props.recipes);
         let recipes;
@@ -24,9 +24,11 @@ class Recipes extends Component {
             recipes = allRecipes.map((recipe, i) => {
                 return(
                     <div key ={i} className='recipe-display-box'>
-                      <p>{recipe.recipe.label}</p>
-                      <img className='pantry-pic'width={'20%'} height={'10%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
-                      <a href={recipe.recipe.url}>Link to Recipe</a>
+                        <a href={recipe.recipe.url}>
+                            <p className='recipe-name'>{recipe.recipe.label}</p>
+                        </a>
+                        <img className='pantry-pic'width={'30%'} height={'20%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
+                        <button className='add-to-fav'>Add to Favorites</button>
                     </div>
                 )
             })
@@ -37,7 +39,24 @@ class Recipes extends Component {
         }
         return(
             <div className='diet-box'>
-            <h1>Recipes</h1>
+                <h1>Recipes</h1>
+                <div className='filter-box'>
+                    <h2>Filter:</h2><br/>
+                    <section className='left-filter-box'>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='vegetarian'type='checkbox'value='vegetarian'/>Vegetarian<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='vegan'type='checkbox'value='vegan'/>Vegan<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='pescatarian'type='checkbox'value='pescatarian'/>Pescatarian<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='keto'type='checkbox'value='keto'/>Keto<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='low-fat'type='checkbox'value='lowfat'/>Low Fat<br/>
+                    </section>
+                    <section className='right-filter-box'>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='gluten-free'type='checkbox'value='glutenfree'/>Gluten Free<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='nut-free'type='checkbox'value='nutfree'/>Nut Free<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='dairy-free'type='checkbox'value='dairyfree'/>Dairy Free<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='low-carb'type='checkbox'value='lowcarb'/>Low Carb<br/>
+                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='paleo'type='checkbox'value='paleo'/>Paleo<br/>
+                    </section>
+                </div>
             {recipes}
             </div>
         )

@@ -19,7 +19,8 @@ class App extends Component {
       errorMessage: '',
       lockedResult: '',
       pantryData: {},
-      recipes: {}
+      recipes: {},
+      filterElems: []
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
@@ -28,6 +29,7 @@ class App extends Component {
     this.getPantryItems = this.getPantryItems.bind(this)
     this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this)
     // this.fetchRecipes = this.fetchRecipes.bind(this);
+    this.addFilterElem = this.addFilterElem.bind(this);
   }
 
   checkForLocalToken () {
@@ -128,6 +130,11 @@ class App extends Component {
     }
   }
 
+  addFilterElem(elem){
+    this.setState({
+      filterElems: [...this.state.filterElems, elem]
+    })
+  }
 
   render(){
     let user = Object.assign({}, this.state.user)
@@ -164,7 +171,7 @@ class App extends Component {
       </div>
       {contents}
         <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/recipes' render={()=><Recipes recipes={this.state.recipes}/>} />
+        <Route exact path='/recipes' render={()=><Recipes addFilterElem={this.addFilterElem}recipes={this.state.recipes}/>} />
         <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>
