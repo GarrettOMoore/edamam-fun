@@ -43,18 +43,18 @@ class Recipes extends Component {
                 <div className='filter-box'>
                     <h2>Filter:</h2><br/>
                     <section className='left-filter-box'>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='vegetarian'type='checkbox'value='vegetarian'/>Vegetarian<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='vegan'type='checkbox'value='vegan'/>Vegan<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='pescatarian'type='checkbox'value='pescatarian'/>Pescatarian<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='keto'type='checkbox'value='keto'/>Keto<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='low-fat'type='checkbox'value='lowfat'/>Low Fat<br/>
+                        <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='vegetarian'type='checkbox'value='vegetarian'/>Vegetarian<br/>
+                        <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='vegan'type='checkbox'value='vegan'/>Vegan<br/>
+                        {/* <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='pescatarian'type='checkbox'value='pescatarian'/>Pescatarian<br/> */}
+                        {/* <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='keto'type='checkbox'value='keto'/>Keto<br/> */}
                     </section>
                     <section className='right-filter-box'>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='gluten-free'type='checkbox'value='glutenfree'/>Gluten Free<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='nut-free'type='checkbox'value='nutfree'/>Nut Free<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='dairy-free'type='checkbox'value='dairyfree'/>Dairy Free<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='low-carb'type='checkbox'value='lowcarb'/>Low Carb<br/>
-                        <input onClick={(e)=>this.props.addFilterElem(e.target.value)}id='paleo'type='checkbox'value='paleo'/>Paleo<br/>
+                        <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='low-fat'type='checkbox'value='lowfat'/>Low Fat<br/>
+                        {/* <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='gluten-free'type='checkbox'value='glutenfree'/>Gluten Free<br/> */}
+                        {/* <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='nut-free'type='checkbox'value='nutfree'/>Nut Free<br/> */}
+                        {/* <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='dairy-free'type='checkbox'value='dairyfree'/>Dairy Free<br/> */}
+                        <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='low-carb'type='checkbox'value='lowcarb'/>Low Carb<br/>
+                        {/* <input onClick={(e)=>this.props.updateRecipes(e.target.value)}id='paleo'type='checkbox'value='paleo'/>Paleo<br/> */}
                     </section>
                 </div>
             {recipes}

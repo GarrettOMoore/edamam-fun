@@ -20,6 +20,7 @@ class App extends Component {
       lockedResult: '',
       pantryData: {},
       recipes: {},
+      queryStr: '',
       filterElems: []
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
@@ -30,6 +31,7 @@ class App extends Component {
     this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this)
     // this.fetchRecipes = this.fetchRecipes.bind(this);
     this.addFilterElem = this.addFilterElem.bind(this);
+    this.updateRecipes = this.updateRecipes.bind(this);
   }
 
   checkForLocalToken () {
@@ -126,14 +128,37 @@ class App extends Component {
     console.log("In Recipe Submit", queue)
     if (queue.length > 0) {
       let queryStr = queue.join('&').replace(/\s/g, '');
+      this.setState({
+        queryStr: queryStr
+      })
       this.fetchRecipes(queryStr)
     }
   }
 
   addFilterElem(elem){
-    this.setState({
-      filterElems: [...this.state.filterElems, elem]
-    })
+    let filterStr = ''
+    if (elem.length > 0 && typeof elem === 'object') {
+      filterStr = elem.join('&').replace(/\s/g, '');
+      this.setState({
+        filterElems: [...this.state.filterElems, filterStr]
+      })
+    } else {
+      filterStr = elem;
+    }
+    this.updateRecipes(this.state.filterElems)
+  }
+
+  updateRecipes(elem){
+    axios.post('/recipes/update', {
+      query: this.state.queryStr,
+      filter: elem
+  }).then((res) => {
+    console.log(res)
+      this.setState({
+          recipes: res.data.data.hits
+      })
+  })
+  .catch((err) => console.log(err))
   }
 
   render(){
@@ -171,7 +196,7 @@ class App extends Component {
       </div>
       {contents}
         <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/recipes' render={()=><Recipes addFilterElem={this.addFilterElem}recipes={this.state.recipes}/>} />
+        <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}/>} />
         <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>
