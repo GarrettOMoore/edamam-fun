@@ -25,6 +25,7 @@ class Pantry extends Component {
     }
 
     componentDidMount(){
+      this.props.getPantryItems()
       this.setState({
         data: this.props.pantryData
       })
