@@ -39,6 +39,7 @@ class Login extends Component {
           } else {
               localStorage.setItem('mernToken', res.data.token)
               this.props.liftToken(res.data)
+              this.props.getItems()
               this.props.history.push('/mypantry')
           }
       }).catch( err => {

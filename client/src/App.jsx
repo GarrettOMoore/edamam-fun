@@ -197,7 +197,7 @@ class App extends Component {
       {contents}
         <Route exact path='/' render={()=><About/>} />
         <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}/>} />
-        <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}{...props}/>} />
+        <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}getItems={this.getPantryItems}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>
   </Router>
