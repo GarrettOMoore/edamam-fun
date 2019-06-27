@@ -161,6 +161,21 @@ class App extends Component {
   .catch((err) => console.log(err))
   }
 
+  // saveRecipe(recipeObj) {
+  //   axios.post('/recipes', {
+  //       id: this.state.user,
+  //       name: recipeObj.name,
+  //       link: recipeObj.quantity,
+  //       image: recipeObj.image
+  //   }).then( res => {
+  //     if (res.data.type === 'error') {
+  //         console.log("ERROR")
+  //     } 
+  //   }).catch( err => {
+  //       console.log(err)
+  //   })
+  // }
+
   render(){
     let user = Object.assign({}, this.state.user)
     let contents;
