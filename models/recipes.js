@@ -20,16 +20,16 @@ const recipeSchema = new Schema ({
 	}
 })
 
-pantrySchema.set('toObject', {
+recipeSchema.set('toObject', {
 	transform: function (doc, ret, options)  {
 		let returnJson = {
 			_id: ret._id,
 			name: ret.name,
-			quantity: ret.quantity,
+			link: ret.link,
       image: ret.image,
 		}
 		return returnJson;
 	}
 });
 
-module.exports = mongoose.model('Pantry', pantrySchema);
+module.exports = mongoose.model('Recipe', recipeSchema);

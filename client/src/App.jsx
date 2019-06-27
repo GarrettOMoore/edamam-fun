@@ -32,6 +32,7 @@ class App extends Component {
     // this.fetchRecipes = this.fetchRecipes.bind(this);
     this.addFilterElem = this.addFilterElem.bind(this);
     this.updateRecipes = this.updateRecipes.bind(this);
+    this.saveRecipe = this.saveRecipe.bind(this);
   }
 
   checkForLocalToken () {
@@ -161,20 +162,22 @@ class App extends Component {
   .catch((err) => console.log(err))
   }
 
-  // saveRecipe(recipeObj) {
-  //   axios.post('/recipes', {
-  //       id: this.state.user,
-  //       name: recipeObj.name,
-  //       link: recipeObj.quantity,
-  //       image: recipeObj.image
-  //   }).then( res => {
-  //     if (res.data.type === 'error') {
-  //         console.log("ERROR")
-  //     } 
-  //   }).catch( err => {
-  //       console.log(err)
-  //   })
-  // }
+
+  saveRecipe(recipeObj) {
+    console.log(recipeObj)
+    axios.post('/recipes', {
+        id: this.state.user,
+        name: recipeObj.recipe.label,
+        link: recipeObj.recipe.url,
+        image: recipeObj.recipe.image
+    }).then( res => {
+      if (res.data.type === 'error') {
+          console.log("ERROR")
+      } 
+    }).catch( err => {
+        console.log(err)
+    })
+  }
 
   render(){
     let user = Object.assign({}, this.state.user)
@@ -211,7 +214,7 @@ class App extends Component {
       </div>
       {contents}
         <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}/>} />
+        <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />
         <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}getItems={this.getPantryItems}{...props}/>} />
         <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>

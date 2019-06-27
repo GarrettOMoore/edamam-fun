@@ -28,7 +28,7 @@ class Recipes extends Component {
                             <p className='recipe-name'>{recipe.recipe.label}</p>
                         </a>
                         <img className='pantry-pic'width={'30%'} height={'20%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
-                        <button className='add-to-fav'>Add to Favorites</button>
+                        <button onClick={this.props.saveRecipe(recipe.recipe)}className='add-to-fav'>Add to Favorites</button>
                     </div>
                 )
             })
