@@ -1,8 +1,8 @@
 
 
-.App {
+.App, html {
   text-align: center;
-  /* margin: 1em; */
+  margin: 0;
   background: linear-gradient(
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.5)
@@ -40,12 +40,15 @@
 
 .logo {
   margin-top: 1em;
-  width: 20%;
-  height: 20%;
+  width: 10%;
+  height: 10%;
   opacity: 0.6;
   border: 6px solid #282c34;
 }
 
+.page-header {
+  font-size: 6em;
+}
 .nav-box {
   margin-top: 2em;
 }
@@ -183,4 +186,9 @@ h1, h2, h3, h4, h5 {
   background-color: transparent;
   color: #282c34;
   font-size: 1em;
+}
+
+.about-text {
+  font-size: 1.5em;
+  margin: 5em;
 }

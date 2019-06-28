@@ -181,20 +181,49 @@ class App extends Component {
 
   render(){
     let user = Object.assign({}, this.state.user)
+    let nav;
     let contents;
     if (user.name) {
+      nav = (
+        <>
+          <div className='nav-box'>
+            <nav>
+              <Link className='nav-text'to='/'>About</Link> | {' '}
+              <Link className='nav-text'to='/search'>Search</Link> | {' '}
+              <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
+              <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
+            </nav>
+          </div>
+        </>
+      )
       contents = (
       <>
+      <Route exact path='/' render={()=><About/>} />
       <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
       <Route path='/mypantry' render={(props)=><Pantry user={user}pantryData={this.state.pantryData}getPantryItems={this.getPantryItems}submitRecipe={this.handleRecipeSubmit}{...props}logout={this.logout}/>}/>
+      <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />
       </>
       )
     } else {
+      nav = (
+        <div className='nav-box'>
+          <nav>
+            <Link className='nav-text'to='/'>About</Link> | {' '}
+            <Link className='nav-text'to='/search'>Search</Link> | {' '}
+            <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
+            <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
+            <Link className='nav-text'to='/login'>Log In</Link> | {' '}
+            <Link className='nav-text'to='/signup'>Sign Up</Link>
+          </nav>
+      </div>
+      )
       contents = (
         <>
-      <Route exact path ='/' render={()=><Login />}/>
-      <Route exact path ='/mypantry' render={()=><Login />}/>
-      <Route exaxt path ='/search' render={()=><Login/>}/>
+          <Route exact path ='/' render={()=><Login />}/>
+          <Route exact path ='/mypantry' render={()=><Login />}/>
+          <Route exaxt path ='/search' render={()=><Login/>}/>
+          <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}getItems={this.getPantryItems}{...props}/>} />
+          <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
         </>
       )
     }
@@ -204,19 +233,10 @@ class App extends Component {
     <img className='logo'src={Logo} alt="logo"/>
       <div className='nav-box'>
         <nav>
-          <Link className='nav-text'to='/'>About</Link> | {' '}
-          <Link className='nav-text'to='/search'>Search</Link> | {' '}
-          <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
-          <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
-          <Link className='nav-text'to='/login'>Log In</Link> | {' '}
-          <Link className='nav-text'to='/signup'>Sign Up</Link>
+          {nav}
         </nav>
       </div>
       {contents}
-        <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />
-        <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}getItems={this.getPantryItems}{...props}/>} />
-        <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
       </div>
   </Router>
   );
