@@ -6,6 +6,7 @@ import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import Pantry from './Components/Pantry'
 import Recipes from './Components/Recipes'
+import Saved from './Components/Saved'
 import './App.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Logo from './Images/mixte_free.jpeg'
@@ -21,7 +22,8 @@ class App extends Component {
       pantryData: {},
       recipes: {},
       queryStr: '',
-      filterElems: []
+      filterElems: [],
+      savedRecipes: {}
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
@@ -174,7 +176,9 @@ class App extends Component {
       if (res.data.type === 'error') {
           console.log("ERROR")
       } else {
-        console.log("Success, ", res)
+        this.setState({
+          savedRecipes: res
+        })
       }
     }).catch( err => {
         console.log(err)
@@ -194,6 +198,7 @@ class App extends Component {
               <Link className='nav-text'to='/search'>Search</Link> | {' '}
               <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
               <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
+              <Link className='nav-text'to='/saved'>Saved</Link> | {' '}
             </nav>
           </div>
         </>
@@ -201,6 +206,7 @@ class App extends Component {
       contents = (
       <>
       <Route exact path='/' render={()=><About/>} />
+      <Route exact path='/saved' render={()=><Saved savedRecipes={this.state.savedRecipes}/>} />
       <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
       <Route path='/mypantry' render={(props)=><Pantry user={user}pantryData={this.state.pantryData}getPantryItems={this.getPantryItems}submitRecipe={this.handleRecipeSubmit}{...props}logout={this.logout}/>}/>
       <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />
