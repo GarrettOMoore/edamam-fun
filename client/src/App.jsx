@@ -35,6 +35,7 @@ class App extends Component {
     this.addFilterElem = this.addFilterElem.bind(this);
     this.updateRecipes = this.updateRecipes.bind(this);
     this.saveRecipe = this.saveRecipe.bind(this);
+    this.getSavedRecipes = this.getSavedRecipes.bind(this);
   }
 
   checkForLocalToken () {
@@ -168,22 +169,32 @@ class App extends Component {
    saveRecipe = (recipeObj) => {
     console.log(recipeObj)
     axios.post('/recipes/save', {
-        id: this.state.user,
+        id: this.state.user._id,
         name: recipeObj.label,
         link: recipeObj.url,
         image: recipeObj.image
-    }).then( res => {
-      if (res.data.type === 'error') {
-          console.log("ERROR")
-      } else {
-        this.setState({
-          savedRecipes: res
-        })
-      }
-    }).catch( err => {
-        console.log(err)
     })
+    // .then( res => {
+    //   if (res.data.type === 'error') {
+    //       console.log("ERROR")
+    //   } else {
+    //     this.setState({
+    //       savedRecipes: res
+    //     })
+    //   }
+    // }).catch( err => {
+    //     console.log(err)
+    // })
   }
+
+  getSavedRecipes() {
+    let userId = this.state.user._id;
+    axios.get(`/recipes/save/${userId}`).then( res => {
+      this.setState({
+        savedRecipes: res.data,
+      })
+    })
+}
 
   render(){
     let user = Object.assign({}, this.state.user)
@@ -198,7 +209,7 @@ class App extends Component {
               <Link className='nav-text'to='/search'>Search</Link> | {' '}
               <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
               <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
-              <Link className='nav-text'to='/saved'>Saved</Link> | {' '}
+              <Link className='nav-text'to='/saved'>Saved</Link>
             </nav>
           </div>
         </>
@@ -206,7 +217,7 @@ class App extends Component {
       contents = (
       <>
       <Route exact path='/' render={()=><About/>} />
-      <Route exact path='/saved' render={()=><Saved savedRecipes={this.state.savedRecipes}/>} />
+      <Route exact path='/saved' render={()=><Saved getSavedRecipes={this.getSavedRecipes}savedRecipes={this.state.savedRecipes}/>} />
       <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
       <Route path='/mypantry' render={(props)=><Pantry user={user}pantryData={this.state.pantryData}getPantryItems={this.getPantryItems}submitRecipe={this.handleRecipeSubmit}{...props}logout={this.logout}/>}/>
       <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />

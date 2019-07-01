@@ -198,3 +198,7 @@ h1, h2, h3, h4, h5 {
   font-size: 1.5em;
   margin: 5em;
 }
+
+.saved-body {
+  margin-top: 3em;
+}

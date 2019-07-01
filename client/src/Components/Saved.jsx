@@ -8,18 +8,33 @@ class Saved extends Component {
         }
     }
 
-    render(){
-        let allSaved = this.props.savedRecipes.map((i, recipe) => {
-            return(
-                <>
-                <p>{recipe.name}</p>
-                </>
-            )
+    componentDidMount() {
+        this.props.getSavedRecipes();
+        this.setState({
+            saved: this.props.savedRecipes
         })
+    }
+
+    render(){
+        let allSaved;
+        if (this.props.savedRecipes.length > 0) {
+            allSaved = this.props.savedRecipes.map((recipe, i) => {
+                return(
+                    
+                    <div key={i} className='recipe-display-box'>
+                        <img className='recipe-pic'src={recipe.image}alt={recipe.name}></img>
+                        <a href={recipe.link}>
+                            <p className='recipe-name'>{recipe.name}</p>
+                        </a>
+                    </div>
+                   
+                )
+            })
+        }
         return(
-            <>
+            <div className='saved-body'>
              {allSaved} 
-            </>
+            </div>
         )
     }
 }

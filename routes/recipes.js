@@ -32,6 +32,7 @@ router.post('/save', (req, res) => {
 			res.json({type: 'error', message: 'Recipe already exists in database!'})
 		} else {
 			let recipe = new Recipe ({
+				user: req.body.id,
 				name: req.body.name,
 				link: req.body.link,
 				image: req.body.image
@@ -46,5 +47,16 @@ router.post('/save', (req, res) => {
 		}
 	}) 
 })
+
+router.get('/save/:id', (req, res) => {
+	Recipe.find({user: req.params.userId}, (err, items) => {
+			if (!err) {
+				res.status(200).json(items)
+			} else {
+				res.status(500).json({err})
+			}
+		});
+	});
+
 
 module.exports = router;
