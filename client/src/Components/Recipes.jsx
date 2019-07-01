@@ -27,8 +27,8 @@ class Recipes extends Component {
                         <a href={recipe.recipe.url}>
                             <p className='recipe-name'>{recipe.recipe.label}</p>
                         </a>
-                        <img className='pantry-pic'width={'30%'} height={'20%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
-                        <button onClick={this.props.saveRecipe(recipe.recipe)}className='add-to-fav'>Add to Favorites</button>
+                        <img className='recipe-pic'width={'15%'} height={'15%'}src={recipe.recipe.image} alt={recipe.recipe.label}/><br/>
+                        <button onClick={()=>this.props.saveRecipe(recipe.recipe)}className='add-to-fav'>Add to Favorites</button>
                     </div>
                 )
             })
@@ -39,7 +39,7 @@ class Recipes extends Component {
         }
         return(
             <div className='diet-box'>
-                <h1>Recipes</h1>
+                <h1 className='page-header'>Recipes</h1>
                 <div className='filter-box'>
                     <h2>Filter:</h2><br/>
                     <section className='left-filter-box'>

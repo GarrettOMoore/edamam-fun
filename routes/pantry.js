@@ -3,6 +3,10 @@ const router = express.Router();
 const Pantry = require('../models/pantry');
 
 router.post('/', (req, res) => {
+	Pantry.findOne({name: req.body.name}, (err, recipe) => {
+		if (recipe) {
+			res.json({type: 'error', message: 'Recipe already exists in database!'})
+		} else {
 			let pantry = new Pantry ({
 				user_id: req.body.id,
 				name: req.body.name,
@@ -16,7 +20,9 @@ router.post('/', (req, res) => {
 					res.json(pantry)
 			};
 		})
+	 }
 	})
+})
 
 router.get('/:id', (req, res) => {
 	Pantry.find({user_id: req.params.id}, (err, items) => {

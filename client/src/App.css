@@ -69,7 +69,7 @@
 }
 
 .pantry-pic {
-  border: 2px solid #282c34;
+  /* border: 2px solid #282c34; */
   border-radius: 50%;
 }
 
@@ -86,7 +86,7 @@
 }
 
 .nav-text:hover {
-  border-bottom: 2px solid #282c34;
+  border-bottom: 2px solid white;
 }
 
 a {
@@ -119,6 +119,11 @@ h1, h2, h3, h4, h5 {
   opacity: 0.8;
   color: #282c34;
   z-index: 3;
+}
+
+.recipe-pic {
+  border-radius: 30%;
+  border: 2px solid white;
 }
 
 .queue-item {
@@ -156,6 +161,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .recipe-name {
+  color: white;
   font-size: 2em;
 }
 
@@ -171,7 +177,7 @@ h1, h2, h3, h4, h5 {
 .filter-box {
   margin: 0 auto;
   width: 30%;
-  border: 4px solid #282c34;
+  border: 4px solid white;
 }
 
 .filter-box * {

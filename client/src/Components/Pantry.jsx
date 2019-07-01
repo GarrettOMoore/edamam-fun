@@ -104,7 +104,7 @@ class Pantry extends Component {
             <>
               <p className='username'>Hello, {this.props.user.name}! </p>
               <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
-              <h1>My Pantry</h1>
+              <h1 className='page-header'>My Pantry</h1>
               <div className='recipe-box'>
                 <h3 className='queue-header'>Recipe Queue: {this.state.queue.length}</h3>
                 {queueItems}

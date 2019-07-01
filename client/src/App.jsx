@@ -163,17 +163,19 @@ class App extends Component {
   }
 
 
-  saveRecipe(recipeObj) {
+   saveRecipe = (recipeObj) => {
     console.log(recipeObj)
-    axios.post('/recipes', {
+    axios.post('/recipes/save', {
         id: this.state.user,
-        name: recipeObj.recipe.label,
-        link: recipeObj.recipe.url,
-        image: recipeObj.recipe.image
+        name: recipeObj.label,
+        link: recipeObj.url,
+        image: recipeObj.image
     }).then( res => {
       if (res.data.type === 'error') {
           console.log("ERROR")
-      } 
+      } else {
+        console.log("Success, ", res)
+      }
     }).catch( err => {
         console.log(err)
     })
