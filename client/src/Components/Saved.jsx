@@ -1,12 +1,16 @@
 import React, {Component} from 'react'
+import StarRatings from 'react-star-ratings';
 
 class Saved extends Component {
-    constructor(props) {
-    super(props)
+    // constructor(props) {
+    // super(props)
+      changeRating(newRating, name) {
         this.state = {
-            saved: {}
+            saved: {},
+            rating: newRating
         }
-    }
+      }
+    // }
 
     componentDidMount() {
         this.props.getSavedRecipes();
@@ -26,6 +30,13 @@ class Saved extends Component {
                         <a href={recipe.link}>
                             <p className='recipe-name'>{recipe.name}</p>
                         </a>
+                            <StarRatings
+                              rating={this.state.rating}
+                              starRatedColor="blue"
+                              changeRating={this.changeRating}
+                              numberOfStars={5}
+                              name='rating'
+                            />
                     </div>
                    
                 )
