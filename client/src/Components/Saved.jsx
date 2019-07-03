@@ -2,16 +2,21 @@ import React, {Component} from 'react'
 import StarRatings from 'react-star-ratings';
 
 class Saved extends Component {
-    // constructor(props) {
-    // super(props)
-      changeRating(newRating, name) {
-        this.state = {
-            saved: {},
-            rating: newRating
-        }
+    constructor(props) {
+      super(props);
+      this.changeRating = this.changeRating.bind(this);
+      this.state = { 
+          rating: 0,
+          saved: {}
+        };
       }
-    // }
-
+    
+      changeRating(rating) {
+        this.setState({
+          rating: rating
+        })
+      }
+      
     componentDidMount() {
         this.props.getSavedRecipes();
         this.setState({
@@ -36,6 +41,8 @@ class Saved extends Component {
                               changeRating={this.changeRating}
                               numberOfStars={5}
                               name='rating'
+                              starDimension="40px"
+                              starSpacing="15px"
                             />
                     </div>
                    
