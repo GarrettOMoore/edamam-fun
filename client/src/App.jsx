@@ -129,9 +129,8 @@ class App extends Component {
     }
 
   handleRecipeSubmit(queue){
-    console.log("In Recipe Submit", queue)
     if (queue.length > 0) {
-      let queryStr = queue.join('&').replace(/\s/g, '');
+      let queryStr = queue.join('&q=').replace(/\s/g, '');
       this.setState({
         queryStr: queryStr
       })
@@ -257,6 +256,7 @@ class App extends Component {
       </div>
       {contents}
       </div>
+      <div id="edamam-badge" ></div>
   </Router>
   );
   }

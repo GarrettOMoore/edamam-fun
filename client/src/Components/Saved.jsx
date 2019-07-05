@@ -37,7 +37,7 @@ class Saved extends Component {
                         </a>
                             <StarRatings
                               rating={this.state.rating}
-                              starRatedColor="blue"
+                              starRatedColor="red"
                               changeRating={this.changeRating}
                               numberOfStars={5}
                               name='rating'
