@@ -53,6 +53,10 @@
   margin-top: 8em;
 }
 
+.sub-nav {
+  margin-top: 1.5em;
+}
+
 .add-box {
   margin-top: 2em;
 }
@@ -85,7 +89,16 @@
   font-family: 'Titillium Web', sans-serif; 
 }
 
-.nav-text:hover {
+.sub-nav-text {
+  font-size: 1em;
+  margin: 0 1em 0 1em;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  color: white;
+  font-family: 'Titillium Web', sans-serif; 
+}
+
+.nav-text:hover .sub-nav-text:hover {
   border-bottom: 2px solid white;
 }
 
@@ -192,6 +205,19 @@ h1, h2, h3, h4, h5 {
   background-color: transparent;
   color: #282c34;
   font-size: 1em;
+}
+
+.made-btn {
+  border: 2px solid white;
+  margin: 2px;
+  background-color: transparent;
+  color: white;
+  font-size: 2em;
+}
+
+.made-btn:hover {
+  transform: translateY(1.5px);
+  box-shadow:  2px 0px 2px 0px rgba(255,255,255,0.75);
 }
 
 .about-text {

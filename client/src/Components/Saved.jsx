@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import StarRatings from 'react-star-ratings';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import Made from './Made'
+import MakeSoon from './MakeSoon'
+import Modal from './Modal'
 
 class Saved extends Component {
     constructor(props) {
@@ -7,10 +10,17 @@ class Saved extends Component {
       this.changeRating = this.changeRating.bind(this);
       this.state = { 
           rating: 0,
-          saved: {}
+          saved: {},
+          showModal: false
         };
       }
     
+      toggleModal = () => {
+        this.setState({
+          showModal: !this.state.showModal
+        });
+      }
+      
       changeRating(rating) {
         this.setState({
           rating: rating
@@ -35,24 +45,36 @@ class Saved extends Component {
                         <a href={recipe.link}>
                             <p className='recipe-name'>{recipe.name}</p>
                         </a>
-                            <StarRatings
-                              rating={this.state.rating}
-                              starRatedColor="red"
-                              changeRating={this.changeRating}
-                              numberOfStars={5}
-                              name='rating'
-                              starDimension="40px"
-                              starSpacing="15px"
-                            />
+                        <button className='modal-opener'onClick={this.toggleModal}>I made this!</button>
+                        <Modal
+                            changeRating={this.changeRating}
+                            rating={this.state.rating}
+                            show={this.state.showModal}
+                            closeCallback={this.toggleModal}
+                            customClass="custom_modal_class"
+                        > 
+                        <>
+                            <h2>Told Ya!</h2>
+                            <iframe title="giphy" src="https://giphy.com/embed/l52CGyJ4LZPa0" width="480" height="273" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/sandler-sentences-sounding-l52CGyJ4LZPa0">via GIPHY</a></p>
+                        </>
+                        </Modal>
                     </div>
                    
                 )
             })
         }
         return(
+          <Router>
+            <nav className='sub-nav'>
+              <Link className='sub-nav-text'to='/made'>Made</Link> | {' '}
+              <Link className='sub-nav-text'to='/makesoon'>Make Soon</Link> | {' '}
+            </nav>
             <div className='saved-body'>
              {allSaved} 
             </div>
+            <Route exact path ='/made' render={()=><Made />}/>
+            <Route exact path ='/makesoon' render={()=><MakeSoon />}/>
+          </Router>
         )
     }
 }
