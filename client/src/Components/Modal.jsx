@@ -16,8 +16,10 @@ const Modal = ({ children, customClass, show, closeCallback, ...props }) => {
                     starDimension="40px"
                     starSpacing="15px"
                 /> <br />
-                <button>Submit</button>
-                <button title='Close' className='close-modal' onClick={closeCallback}>Close</button>
+                <section className='modal-btn-box'>
+                  <button>Submit</button>
+                  <button title='Close' className='close-modal' onClick={closeCallback}>Close</button>
+                </section>
             </div>
         </div>
     )

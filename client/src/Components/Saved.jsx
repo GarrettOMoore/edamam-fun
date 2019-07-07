@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Made from './Made'
 import MakeSoon from './MakeSoon'
 import Modal from './Modal'
+import axios from 'axios'
 
 class Saved extends Component {
     constructor(props) {
@@ -34,18 +35,25 @@ class Saved extends Component {
         })
     }
 
+    deleteRecipe = (id) => {
+      axios.get(`/recipes/delete/${id}`)
+      .then( this.props.getSavedRecipes() )
+      .catch ((err) => console.log(err))
+    }
+
     render(){
         let allSaved;
         if (this.props.savedRecipes.length > 0) {
             allSaved = this.props.savedRecipes.map((recipe, i) => {
                 return(
                     
-                    <div key={i} className='recipe-display-box'>
-                        <img className='recipe-pic'src={recipe.image}alt={recipe.name}></img>
+                    <div key={i} className='saved-recipe-display-box'>
+                        <img className='saved-recipe-pic'src={recipe.image}alt={recipe.name}></img>
                         <a href={recipe.link}>
-                            <p className='recipe-name'>{recipe.name}</p>
+                            <p className='saved-recipe-name'>{recipe.name}</p>
                         </a>
                         <button className='modal-opener'onClick={this.toggleModal}>I made this!</button>
+                        <button className='remove-recipe'onClick={()=>this.deleteRecipe(recipe._id)}>Remove</button>
                         <Modal
                             changeRating={this.changeRating}
                             rating={this.state.rating}

@@ -232,3 +232,35 @@ h1, h2, h3, h4, h5 {
 .recipe-display-box {
   margin-top: 2em;
 }
+
+.modal-btn-box {
+  margin-top: 1em;
+}
+
+.search-box {
+  margin-bottom: 8em;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+.saved-recipe-display-box {
+  margin-top: 3em;
+  opacity: 0.88;
+  margin: 1em;
+  padding: 1em;
+  display: inline-block;
+  border: 2px solid white;
+}
+
+.saved-recipe-pic {
+  border-radius: 10%;
+  box-shadow: 2px 0px 32px -9px rgba(0,0,0,0.75);
+  width: 60%;
+  height: 60%;
+}
+
+.saved-recipe-name {
+  color: white;
+}

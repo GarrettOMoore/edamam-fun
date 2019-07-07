@@ -58,5 +58,9 @@ router.get('/save/:id', (req, res) => {
 		});
 	});
 
+router.get('/delete/:id', (req, res) => {
+		Recipe.deleteOne({_id: req.params.id}, (err) => {})
+})
+
 
 module.exports = router;

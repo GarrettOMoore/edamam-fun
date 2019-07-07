@@ -7,6 +7,7 @@ import SignUp from './Components/SignUp'
 import Pantry from './Components/Pantry'
 import Recipes from './Components/Recipes'
 import Saved from './Components/Saved'
+import Footer from './Components/Footer'
 import './App.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Logo from './Images/mixte_free.jpeg'
@@ -173,17 +174,6 @@ class App extends Component {
         link: recipeObj.url,
         image: recipeObj.image
     })
-    // .then( res => {
-    //   if (res.data.type === 'error') {
-    //       console.log("ERROR")
-    //   } else {
-    //     this.setState({
-    //       savedRecipes: res
-    //     })
-    //   }
-    // }).catch( err => {
-    //     console.log(err)
-    // })
   }
 
   getSavedRecipes() {
@@ -255,8 +245,8 @@ class App extends Component {
         </nav>
       </div>
       {contents}
+      <Footer />
       </div>
-      <div id="edamam-badge" ></div>
   </Router>
   );
   }
