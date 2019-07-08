@@ -1,7 +1,7 @@
 import React from 'react'
 import StarRatings from 'react-star-ratings';
 
-const Modal = ({ children, customClass, show, closeCallback, ...props }) => {
+const Modal = ({ children, customClass, show, closeCallback, thisId, ...props }) => {
     return(
         <div className='modal' style={{display: show ? 'block' : 'none'}}>
             <div className='overlay' onClick={closeCallback}></div>
@@ -16,6 +16,8 @@ const Modal = ({ children, customClass, show, closeCallback, ...props }) => {
                     starDimension="40px"
                     starSpacing="15px"
                 /> <br />
+                <p>Tell us about it:</p>
+                <textarea name="message" rows="6" cols="40"/>
                 <section className='modal-btn-box'>
                   <button>Submit</button>
                   <button title='Close' className='close-modal' onClick={closeCallback}>Close</button>

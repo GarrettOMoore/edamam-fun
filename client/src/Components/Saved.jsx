@@ -12,14 +12,27 @@ class Saved extends Component {
       this.state = { 
           rating: 0,
           saved: {},
-          showModal: false
+          showModal: {}
         };
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+
       }
     
-      toggleModal = () => {
+      openModal = (recipe) => {
+        let divToUpdate = {};
+        divToUpdate[recipe] = true;
         this.setState({
-          showModal: !this.state.showModal
+          showModal: Object.assign( {}, this.state.showModal, divToUpdate)
         });
+      }
+
+      closeModal = (recipe) => {
+        let divToUpdate = {};
+        divToUpdate[recipe] = false;
+        this.setState({
+          showModal: Object.assign({}, this.state.showModal, divToUpdate)
+        })
       }
       
       changeRating(rating) {
@@ -52,19 +65,16 @@ class Saved extends Component {
                         <a href={recipe.link}>
                             <p className='saved-recipe-name'>{recipe.name}</p>
                         </a>
-                        <button className='modal-opener'onClick={this.toggleModal}>I made this!</button>
+                        <button className='modal-opener'onClick={()=> this.openModal(recipe._id)}>I made this!</button>
                         <button className='remove-recipe'onClick={()=>this.deleteRecipe(recipe._id)}>Remove</button>
                         <Modal
                             changeRating={this.changeRating}
                             rating={this.state.rating}
-                            show={this.state.showModal}
-                            closeCallback={this.toggleModal}
+                            show={this.state.showModal[recipe._id]}
+                            closeCallback={()=> this.closeModal(recipe._id)}
+                            thisId={recipe._id}
                             customClass="custom_modal_class"
                         > 
-                        <>
-                            <h2>Told Ya!</h2>
-                            <iframe title="giphy" src="https://giphy.com/embed/l52CGyJ4LZPa0" width="480" height="273" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/sandler-sentences-sounding-l52CGyJ4LZPa0">via GIPHY</a></p>
-                        </>
                         </Modal>
                     </div>
                    

@@ -246,21 +246,33 @@ h1, h2, h3, h4, h5 {
 }
 
 .saved-recipe-display-box {
+  position: relative;
   margin-top: 3em;
+  height: 50%;
+  width: 30%;
   opacity: 0.88;
   margin: 1em;
   padding: 1em;
   display: inline-block;
-  border: 2px solid white;
+  /* border: 1px solid rgba(0,0,0,0.75); */
+  border-radius: 10%;
+  box-shadow: 1px 0px 30px -2px #000000;
 }
 
 .saved-recipe-pic {
+  margin-top: 1em;
   border-radius: 10%;
-  box-shadow: 2px 0px 32px -9px rgba(0,0,0,0.75);
   width: 60%;
   height: 60%;
 }
 
 .saved-recipe-name {
   color: white;
+}
+
+.saved-recipe-display-box, button {
+  margin: 1em;
+  background-color: transparent;
+  color: white;
+  font-size: 1em;
 }
