@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema ({
-	user_id: {
+	id: {
 		type: Schema.Types.ObjectId, ref: 'User'
 	}, 
 	name: {
@@ -17,6 +17,12 @@ const recipeSchema = new Schema ({
 	},
 	rating: {
 		type: Number
+	},
+	note: {
+		type: String
+	},
+	hasMade: {
+		type: Boolean
 	}
 })
 

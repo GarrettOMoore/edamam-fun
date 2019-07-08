@@ -169,10 +169,14 @@ class App extends Component {
    saveRecipe = (recipeObj) => {
     console.log(recipeObj)
     axios.post('/recipes/save', {
+        recipeId: recipeObj._id,
         id: this.state.user._id,
         name: recipeObj.label,
         link: recipeObj.url,
-        image: recipeObj.image
+        image: recipeObj.image,
+        rating: 0,
+        note: "",
+        hasMade: false
     })
   }
 

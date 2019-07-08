@@ -26,15 +26,25 @@ class Saved extends Component {
           showModal: Object.assign( {}, this.state.showModal, divToUpdate)
         });
       }
-
       closeModal = (recipe) => {
         let divToUpdate = {};
         divToUpdate[recipe] = false;
         this.setState({
           showModal: Object.assign({}, this.state.showModal, divToUpdate)
         })
+        this.props.getSavedRecipes()
       }
-      
+
+      updateRecipeInfo = (recipe) => {
+        console.log("in update recipe funccccccc for ", recipe, "with ", this.state.rating, " stars")
+        axios.post(`/recipes/updatedetails/${recipe}`, {
+          rating: this.state.rating
+          // note: userNote
+        })
+        .then( this.closeModal(recipe) )
+        .catch ((err) => console.log(err))
+      }
+
       changeRating(rating) {
         this.setState({
           rating: rating
@@ -74,6 +84,7 @@ class Saved extends Component {
                             closeCallback={()=> this.closeModal(recipe._id)}
                             thisId={recipe._id}
                             customClass="custom_modal_class"
+                            updateRecipeInfo={this.updateRecipeInfo}
                         > 
                         </Modal>
                     </div>

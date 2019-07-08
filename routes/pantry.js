@@ -5,7 +5,7 @@ const Pantry = require('../models/pantry');
 router.post('/', (req, res) => {
 	Pantry.findOne({name: req.body.name}, (err, recipe) => {
 		if (recipe) {
-			res.json({type: 'error', message: 'Recipe already exists in database!'})
+			res.json({type: 'error', message: 'Item already exists in database!'})
 		} else {
 			let pantry = new Pantry ({
 				user_id: req.body.id,

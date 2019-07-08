@@ -19,7 +19,7 @@ const Modal = ({ children, customClass, show, closeCallback, thisId, ...props })
                 <p>Tell us about it:</p>
                 <textarea name="message" rows="6" cols="40"/>
                 <section className='modal-btn-box'>
-                  <button>Submit</button>
+                  <button onClick={()=> props.updateRecipeInfo(thisId)}>Submit</button>
                   <button title='Close' className='close-modal' onClick={closeCallback}>Close</button>
                 </section>
             </div>

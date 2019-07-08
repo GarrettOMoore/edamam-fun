@@ -32,10 +32,14 @@ router.post('/save', (req, res) => {
 			res.json({type: 'error', message: 'Recipe already exists in database!'})
 		} else {
 			let recipe = new Recipe ({
-				user: req.body.id,
+				recipeId: req.body.recipeId,
+				id: req.body.id,
 				name: req.body.name,
 				link: req.body.link,
-				image: req.body.image
+				image: req.body.image,
+				rating: 0,
+				note: '',
+				hasMade: false
 			})
 			 recipe.save( (err, recipe) => {
 				if (err) {
@@ -60,6 +64,22 @@ router.get('/save/:id', (req, res) => {
 
 router.get('/delete/:id', (req, res) => {
 		Recipe.deleteOne({_id: req.params.id}, (err) => {})
+})
+
+router.post('/updatedetails/:id', (req, res) => {
+	console.log("RATING: ", req.body.rating)
+	const recipe = {
+		rating: req.body.rating,
+		note: req.body.note,
+		hasMade: true
+	}
+	Recipe.findOneAndUpdate({_id: req.params.id}, recipe, (err) => { 
+		if (err) {
+			console.log(err)
+		} else {
+			console.log("SUCCESSSSS")
+		}
+	})
 })
 
 
