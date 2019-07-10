@@ -10,7 +10,7 @@ import Saved from './Components/Saved'
 import Footer from './Components/Footer'
 import './App.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Logo from './Images/mixte_free.jpeg'
+import Logo from './Images/new_mixte_text.jpeg'
 
 class App extends Component {
   constructor(props) {
@@ -32,11 +32,9 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.getPantryItems = this.getPantryItems.bind(this)
     this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this)
-    // this.fetchRecipes = this.fetchRecipes.bind(this);
     this.addFilterElem = this.addFilterElem.bind(this);
     this.updateRecipes = this.updateRecipes.bind(this);
     this.saveRecipe = this.saveRecipe.bind(this);
-    this.getSavedRecipes = this.getSavedRecipes.bind(this);
   }
 
   checkForLocalToken () {
@@ -119,12 +117,12 @@ class App extends Component {
   }
 
   fetchRecipes(qryStr){
-      axios.post('/recipes', {
-        query: qryStr
+    axios.post('/recipes', {
+      query: qryStr
     }).then((res) => {
-        this.setState({
-            recipes: res.data.data.hits
-        })
+      this.setState({
+        recipes: res.data.data.hits
+      })
     })
     .catch((err) => console.log(err))
     }
@@ -158,9 +156,9 @@ class App extends Component {
       filter: elem
   }).then((res) => {
     console.log(res)
-      this.setState({
-          recipes: res.data.data.hits
-      })
+    this.setState({
+        recipes: res.data.data.hits
+    })
   })
   .catch((err) => console.log(err))
   }
@@ -180,15 +178,6 @@ class App extends Component {
     })
   }
 
-  getSavedRecipes() {
-    let userId = this.state.user._id;
-    axios.get(`/recipes/save/${userId}`).then( res => {
-      this.setState({
-        savedRecipes: res.data,
-      })
-    })
-}
-
   render(){
     let user = Object.assign({}, this.state.user)
     let nav;
@@ -201,7 +190,6 @@ class App extends Component {
               <Link className='nav-text'to='/'>About</Link> | {' '}
               <Link className='nav-text'to='/search'>Search</Link> | {' '}
               <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
-              <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
               <Link className='nav-text'to='/saved'>Saved</Link>
             </nav>
           </div>
@@ -209,11 +197,11 @@ class App extends Component {
       )
       contents = (
       <>
-      <Route exact path='/' render={()=><About/>} />
-      <Route exact path='/saved' render={()=><Saved getSavedRecipes={this.getSavedRecipes}savedRecipes={this.state.savedRecipes}/>} />
-      <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
-      <Route path='/mypantry' render={(props)=><Pantry user={user}pantryData={this.state.pantryData}getPantryItems={this.getPantryItems}submitRecipe={this.handleRecipeSubmit}{...props}logout={this.logout}/>}/>
-      <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />
+        <Route exact path='/' render={()=><About/>} />
+        <Route exact path='/saved' render={()=><Saved user={this.state.user}/>} />
+        <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
+        <Route path='/mypantry' render={(props)=><Pantry user={user}pantryData={this.state.pantryData}getPantryItems={this.getPantryItems}submitRecipe={this.handleRecipeSubmit}{...props}logout={this.logout}/>}/>
+        <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />
       </>
       )
     } else {
@@ -223,7 +211,6 @@ class App extends Component {
             <Link className='nav-text'to='/'>About</Link> | {' '}
             <Link className='nav-text'to='/search'>Search</Link> | {' '}
             <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
-            <Link className='nav-text'to='/recipes'>Recipes</Link> | {' '}
             <Link className='nav-text'to='/login'>Log In</Link> | {' '}
             <Link className='nav-text'to='/signup'>Sign Up</Link>
           </nav>
@@ -241,15 +228,15 @@ class App extends Component {
     }
   return (
     <Router>
-    <div className="App">
-    <img className='logo'src={Logo} alt="logo"/>
-      <div className='nav-box'>
-        <nav>
-          {nav}
-        </nav>
-      </div>
-      {contents}
-      <Footer />
+      <div className="App">
+        <img className='logo'src={Logo} alt="logo"/>
+        <div className='nav-box'>
+          <nav>
+            {nav}
+          </nav>
+        </div>
+        {contents}
+        <Footer />
       </div>
   </Router>
   );

@@ -15,23 +15,6 @@
   color: white;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .food-pic {
   margin-top: 2em;
   border-radius: 50%;
@@ -39,18 +22,18 @@
 }
 
 .logo {
-  margin-top: 1em;
-  width: 10%;
-  height: 10%;
-  opacity: 0.6;
-  border: 6px solid #282c34;
+  margin-top: 4em;
+  width: 15%;
+  height: 15%;
+  opacity: 0.4;
+  border-radius: 30%;
 }
 
 .page-header {
   font-size: 6em;
 }
 .nav-box {
-  margin-top: 8em;
+  margin-top: 4em;
 }
 
 .sub-nav {
@@ -64,16 +47,24 @@
 .pantry-item {
   margin-top: 3em;
   display: inline-block;
-  border: 4px solid black;
-  background-color: white;
-  color: #282c34;
+  /* border: 2px solid white; */
+  background-color: transparent;
+  color: white;
   opacity: 0.88;
   margin: 1em;
   padding: 1em;
+  border-radius: 10%;
+  box-shadow: 1px 0px 30px -2px #000000;
+}
+.pantry-btns {
+  border: 2px solid white;
+  margin: 2px;
+  background-color: transparent;
+  color: white;
+  font-size: 1em;
 }
 
 .pantry-pic {
-  /* border: 2px solid #282c34; */
   border-radius: 50%;
 }
 
@@ -104,16 +95,18 @@
 
 a {
   text-decoration: none;
-  color: #282c34;
-  border-bottom: 2px solid transparent;
+  color: white;
+}
+
+button:focus {
+  outline:0;
 }
 
 a:hover {
-  border-bottom: 2px solid #282c34;
+  border-bottom: 2px solid white;
 }
 
 p {
-  font-size: 1.2em;
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -122,16 +115,16 @@ h1, h2, h3, h4, h5 {
 }
 
 .recipe-box {
-  position: fixed;
-  top: 4vh;
-  left: 2vw;
-  border: 6px solid #282c34;
-  height: 26vh;
-  width: 20vw;
-  background-color: white;
-  opacity: 0.8;
-  color: #282c34;
+  padding: 0.5em;
+  border-radius: 6%;
+  margin: 0 auto;
+  height: 50vh;
+  width: 42%;
+  background-color: transparent;
+  opacity: 0.88;
+  color: white;
   z-index: 3;
+  box-shadow: 10px 0px 70px -2px #000000;
 }
 
 .recipe-pic {
@@ -151,27 +144,32 @@ h1, h2, h3, h4, h5 {
   margin-left: 1em;
 }
 
-.queue-btn-box {
-  left: 22%;
-  margin-bottom: 0.5em; 
-  position: absolute;
-  bottom: 0;
+
+.queue-btn-box-btn {
+  text-decoration: none;
+  color: white;
+  font-size: 1.6em;
+  border: 2px solid transparent;
+  background: none;
+  margin: 1em;
+  margin: 0 auto;
+  opacity: 0.88;
 }
 
-.queue-btn-box button {
-  border: 2px solid #282c34;
-  margin: 0.2em;
-  
+.queue-btn-box-btn:hover {
+text-decoration: none;
+border: 2px solid white;
+}
+
+.queue-header {
+  letter-spacing: 0.3em;
+  font-size: 2em;
 }
 
 .remove-btn button {
   border: 2px solid #282c34;
 }
 
-.queue-header {
-  letter-spacing: 0.2em;
-  border-bottom: 2px solid #282c34;
-}
 
 .recipe-name {
   color: white;
@@ -197,14 +195,6 @@ h1, h2, h3, h4, h5 {
   display: inline-block;
   margin: 0.7em;
   text-align: left;
-}
-
-.pantry-btns {
-  border: 2px solid black;
-  margin: 2px;
-  background-color: transparent;
-  color: #282c34;
-  font-size: 1em;
 }
 
 .made-btn {
@@ -254,7 +244,6 @@ h1, h2, h3, h4, h5 {
   margin: 1em;
   padding: 1em;
   display: inline-block;
-  /* border: 1px solid rgba(0,0,0,0.75); */
   border-radius: 10%;
   box-shadow: 1px 0px 30px -2px #000000;
 }
@@ -275,4 +264,12 @@ h1, h2, h3, h4, h5 {
   background-color: transparent;
   color: white;
   font-size: 1em;
+}
+
+.recipe-note {
+  font-size: 1.5em;
+}
+
+.quote {
+  font-size: 1.7em;
 }

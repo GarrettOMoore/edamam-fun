@@ -73,12 +73,12 @@ class Search extends Component {
         } 
         return(
             <section className='search-box'>
-            <h1 className='page-header'>Search by ingredient: </h1>
-            <p>Ex. "Salmon", or "Garlic".</p>
-            <input onChange={this.handleNameChange}name='name' type='text'/>
-            <button onClick={this.handleClick}>Submit!</button> <br/>
-            {img}
-            {text}
+                <h1 className='page-header'>Search by ingredient: </h1>
+                <p>Ex. "Salmon", or "Garlic".</p>
+                <input onChange={this.handleNameChange}name='name' type='text'/>
+                <button onClick={this.handleClick}>Submit!</button> <br/>
+                {img}
+                {text}
             </section>
         )
     }

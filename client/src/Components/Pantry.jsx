@@ -31,35 +31,35 @@ class Pantry extends Component {
       })
     }
 
-      deleteItem = (id) => {
-        axios.get(`/pantry/delete/${id}`)
-        .then( this.props.getPantryItems() )
-        .catch ((err) => console.log(err))
-      }
+    deleteItem = (id) => {
+      axios.get(`/pantry/delete/${id}`)
+      .then( this.props.getPantryItems() )
+      .catch ((err) => console.log(err))
+    }
 
-      addToQueue(name){
-        if (this.state.queue.length < 3 && this.state.queue.indexOf(name) === -1) {
-          let newQueue = this.state.queue;
-          newQueue.push(name);
-          this.setState({
-            queue: newQueue
-          })
-        }
-      }
-
-      resetQueue(){
+    addToQueue(name){
+      if (this.state.queue.length < 3 && this.state.queue.indexOf(name) === -1) {
+        let newQueue = this.state.queue;
+        newQueue.push(name);
         this.setState({
-          queue: []
+          queue: newQueue
         })
       }
+    }
 
-      removeItemFromQueue(name){
-        let index = this.state.queue.indexOf(name);
-        this.state.queue.splice(index, 1)
-        this.setState({
-          queue: this.state.queue
-        })
-      }
+    resetQueue(){
+      this.setState({
+        queue: []
+      })
+    }
+
+    removeItemFromQueue(name){
+      let index = this.state.queue.indexOf(name);
+      this.state.queue.splice(index, 1);
+      this.setState({
+        queue: this.state.queue
+      })
+    }
 
 
     render() {
@@ -108,14 +108,13 @@ class Pantry extends Component {
               <div className='recipe-box'>
                 <h3 className='queue-header'>Recipe Queue: {this.state.queue.length}</h3>
                 {queueItems}
-                <section className='queue-btn-box'>
-                  <button onClick={()=>{this.resetQueue()}}>Empty Queue</button>
-                  <Link to='/recipes'><button onClick={()=>{this.props.submitRecipe(this.state.queue)}}>Find Recipes</button></Link>
-                  <Route path='/recipes'render={()=><Recipes/>}/>
-
-                </section>
+                <div className='queue-btn-box'>
+                  <button className='queue-btn-box-btn'onClick={()=>{this.resetQueue()}}>Empty Queue</button>
+                  <Link className='queue-btn-box-btn'to='/recipes'onClick={()=>{this.props.submitRecipe(this.state.queue)}}>Find Recipes</Link>
+                </div>
               </div>
               {pantryItems}
+              <Route path='/recipes'render={()=><Recipes/>}/>
             </>
         )
     }

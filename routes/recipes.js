@@ -77,7 +77,7 @@ router.post('/updatedetails/:id', (req, res) => {
 		if (err) {
 			console.log(err)
 		} else {
-			console.log("SUCCESSSSS")
+			console.log(res)
 		}
 	})
 })
