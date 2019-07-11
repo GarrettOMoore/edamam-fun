@@ -101,20 +101,22 @@ class Pantry extends Component {
   }
 
         return(
-            <>
-              <p className='username'>Hello, {this.props.user.name}! </p>
-              <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
-              <h1 className='page-header'>My Pantry</h1>
-              <div className='recipe-box'>
-                <h3 className='queue-header'>Recipe Queue: {this.state.queue.length}</h3>
-                {queueItems}
-                <div className='queue-btn-box'>
-                  <button className='queue-btn-box-btn'onClick={()=>{this.resetQueue()}}>Empty Queue</button>
-                  <Link className='queue-btn-box-btn'to='/recipes'onClick={()=>{this.props.submitRecipe(this.state.queue)}}>Find Recipes</Link>
+          <>
+            <p className='username'>Hello, {this.props.user.name}! </p>
+                <p className='logout'>Not you?  <a className='logout'href='/login'onClick={this.props.logout}>Log out!</a></p>
+                <h1 className='page-header'>My Pantry</h1>
+                <div className='recipe-box'>
+                  <h3 className='queue-header'>Recipe Queue: {this.state.queue.length}</h3>
+                  {queueItems}
+                  <div className='queue-btn-box'>
+                    <button className='queue-btn-box-btn'onClick={()=>{this.resetQueue()}}>Empty Queue</button>
+                    <Link className='queue-btn-box-btn'to='/recipes'onClick={()=>{this.props.submitRecipe(this.state.queue)}}>Find Recipes</Link>
+                  </div>
                 </div>
+              <div className='pantry-main'>
+                {pantryItems}
+                <Route path='/recipes'render={()=><Recipes/>}/>
               </div>
-              {pantryItems}
-              <Route path='/recipes'render={()=><Recipes/>}/>
             </>
         )
     }

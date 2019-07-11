@@ -21,7 +21,8 @@ class Saved extends Component {
           filter: 'all',
           buttonStyleAll: {border: '2px solid transparent'},
           buttonStyleA: {border: '2px solid transparent'},
-          buttonStyleB: {border: '2px solid transparent'}
+          buttonStyleB: {border: '2px solid transparent'},
+          userNote: ''
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -61,12 +62,15 @@ class Saved extends Component {
     updateRecipeInfo = (recipe) => {
       console.log("in update recipe funccccccc for ", recipe, "with ", this.state.rating, " stars")
       axios.post(`/recipes/updatedetails/${recipe}`, {
-        rating: this.state.rating
-        // note: userNote
+        rating: this.state.rating,
+        note: this.state.userNote
       })
-      .then( this.closeModal(recipe) )
+      .then(this.closeModal(recipe)).then(this.setState({
+        rating: 0
+      }))
       .catch ((err) => console.log(err))
     }
+
     changeRating(rating) {
       this.setState({
         rating: rating
@@ -121,6 +125,12 @@ class Saved extends Component {
       })
     }
 
+    handleTextChange = (e) => {
+      this.setState({
+        userNote: e.target.value
+      })
+    }
+
     render(){
         let recipeDisplay;
         if (this.state.savedRecipes.length > 0) {
@@ -134,6 +144,7 @@ class Saved extends Component {
                     <p className='saved-recipe-name'>{recipe.name}</p>
                   </a>
                   <StarRatings
+                  className='stars'
                   rating={recipe.rating}
                   starRatedColor="red"
                   numberOfStars={5}
@@ -141,7 +152,7 @@ class Saved extends Component {
                   starDimension="40px"
                   starSpacing="15px"
                   />
-                  <p className='recipe-note'><span className='quote'>"</span>It was good! A little salty - but a nice well rounded meal. Easy to make, would make again!<span className='quote'>"</span></p>
+                  <p className='recipe-note'><span className='quote'>"</span>{recipe.note}<span className='quote'>"</span></p>
                   <button className='remove-recipe'onClick={()=>this.deleteRecipe(recipe._id)}>Remove</button>
                 </div>
                
@@ -166,6 +177,7 @@ class Saved extends Component {
                         thisId={recipe._id}
                         customClass="custom_modal_class"
                         updateRecipeInfo={this.updateRecipeInfo}
+                        handleTextChange={this.handleTextChange}
                     > 
                     </Modal>
                   </div>
@@ -181,6 +193,7 @@ class Saved extends Component {
                         <p className='saved-recipe-name'>{recipe.name}</p>
                     </a>
                     <StarRatings
+                      className='stars'
                       rating={recipe.rating}
                       starRatedColor="red"
                       numberOfStars={5}
@@ -220,6 +233,7 @@ class Saved extends Component {
                         thisId={recipe._id}
                         customClass="custom_modal_class"
                         updateRecipeInfo={this.updateRecipeInfo}
+                        handleTextChange={this.handleTextChange}
                     > 
                     </Modal>
                   </div>

@@ -1,4 +1,61 @@
+@media screen and (max-width: 600px) {
 
+  .about-text {
+    padding: 0;
+    width: 100%;
+  }
+
+  .App {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  body .recipe-box  {
+    width: 80%;
+    padding: 0.3em;
+    margin: 0 auto;
+  }
+  
+  body .queue-header {
+    font-size: 1.5em;
+  }
+
+  .queue-box {
+    font-size: 1em;
+  }
+
+  body .queue-btn-box-btn {
+    font-size: 1.3em;
+  }
+
+  .remove-frm-queue{
+    width: 50%;
+    font-size: 0.8em;
+  }
+
+  .queue-btn-box-btn {
+    font-size: 0.5em;
+  }
+  nav {
+    font-size: 0.75em;
+  }
+
+  .filter-box {
+    width: 90%;
+  }
+
+  .recipe-pic {
+    width: 50%;
+  }
+
+  body .saved-recipe-display-box {
+    width: 100%;
+    margin: 2em;
+    padding: 0;
+  }
+}
 
 .App, html {
   text-align: center;
@@ -44,6 +101,14 @@
   margin-top: 2em;
 }
 
+.pantry-main {
+  margin: 0 auto;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .pantry-item {
   margin-top: 3em;
   display: inline-block;
@@ -51,6 +116,7 @@
   background-color: transparent;
   color: white;
   opacity: 0.88;
+  height: 100%;
   margin: 1em;
   padding: 1em;
   border-radius: 10%;
@@ -115,7 +181,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .recipe-box {
-  padding: 0.5em;
+  /* padding: 0.5em; */
   border-radius: 6%;
   margin: 0 auto;
   height: 50vh;
@@ -187,7 +253,7 @@ border: 2px solid white;
 
 .filter-box {
   margin: 0 auto;
-  width: 30%;
+  /* width: 30%; */
   border: 4px solid white;
 }
 
@@ -212,7 +278,6 @@ border: 2px solid white;
 
 .about-text {
   font-size: 1.5em;
-  margin: 5em;
 }
 
 .saved-body {
