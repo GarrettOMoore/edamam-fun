@@ -19,6 +19,7 @@ class Saved extends Component {
           hasMade: [],
           makeSoon: [],
           filter: 'all',
+          buttonStyleAll: {border: '2px solid transparent'},
           buttonStyleA: {border: '2px solid transparent'},
           buttonStyleB: {border: '2px solid transparent'}
         };
@@ -54,7 +55,7 @@ class Saved extends Component {
       this.setState({
         showModal: Object.assign({}, this.state.showModal, divToUpdate)
       })
-      this.props.getSavedRecipes()
+      this.getSavedRecipes()
     }
 
     updateRecipeInfo = (recipe) => {
@@ -74,7 +75,7 @@ class Saved extends Component {
 
     deleteRecipe = (id) => {
       axios.get(`/recipes/delete/${id}`)
-      .then( this.props.getSavedRecipes() )
+      .then( this.getSavedRecipes() )
       .catch ((err) => console.log(err))
     }
 
@@ -83,7 +84,8 @@ class Saved extends Component {
       this.setState({
         filter: 'made-recipes',
         buttonStyleA: {border: '2px solid white'},
-        buttonStyleB: {border: '2px solid transparent'}
+        buttonStyleB: {border: '2px solid transparent'},
+        buttonStyleAll: {border: '2px solid transparent'}
       })
       this.loadRecipes();
     }
@@ -93,7 +95,18 @@ class Saved extends Component {
       this.setState({
         filter: 'make-soon',
         buttonStyleB: {border: '2px solid white'},
-        buttonStyleA: {border: '2px solid transparent'}
+        buttonStyleA: {border: '2px solid transparent'},
+        buttonStyleAll: {border: '2px solid transparent'}
+      })
+      this.loadRecipes();
+    }
+
+    showAllClick = () => {
+      this.setState({
+        filter: 'all',
+        buttonStyleAll: {border: '2px solid white'},
+        buttonStyleA: {border: '2px solid transparent'},
+        buttonStyleB: {border: '2px solid transparent'}
       })
       this.loadRecipes();
     }
@@ -167,6 +180,14 @@ class Saved extends Component {
                     <a href={recipe.link}>
                         <p className='saved-recipe-name'>{recipe.name}</p>
                     </a>
+                    <StarRatings
+                      rating={recipe.rating}
+                      starRatedColor="red"
+                      numberOfStars={5}
+                      name='rating'
+                      starDimension="20px"
+                      starSpacing="8px"
+                    />
                     <button style={this.state.buttonStyleA}className='modal-opener'onClick={()=> this.openModal(recipe._id)}><FontAwesomeIcon icon={faCheckCircle} />{' '}Made!</button>
                     <button className='remove-recipe'onClick={()=>this.deleteRecipe(recipe._id)}>Remove</button>
                     <Modal
@@ -209,6 +230,7 @@ class Saved extends Component {
         return(
           <div className='main'>
             <nav className='sub-nav'>
+              <button style={this.state.buttonStyleAll}onClick={this.showAllClick}>All</button>
               <button style={this.state.buttonStyleA}onClick={this.showMadeClick}>Made</button>
               <button style={this.state.buttonStyleB}onClick={this.showMakeSoonClick}>Make Soon</button>
             </nav>

@@ -244,7 +244,7 @@ border: 2px solid white;
   margin: 1em;
   padding: 1em;
   display: inline-block;
-  border-radius: 10%;
+  /* border-radius: 10%; */
   box-shadow: 1px 0px 30px -2px #000000;
 }
 
@@ -272,4 +272,12 @@ border: 2px solid white;
 
 .quote {
   font-size: 1.7em;
+}
+
+.saved-body {
+  margin: 0 auto;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
