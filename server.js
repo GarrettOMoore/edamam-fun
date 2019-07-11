@@ -10,6 +10,7 @@ const app = express();
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(helmet());
+app.use(express.static(__dirname + '/client/build'));
 app.use('/pantry', require('./routes/pantry'));
 app.use('/recipes', require('./routes/recipes'));
 app.use('/ingredients', require('./routes/ingredients'));
@@ -29,7 +30,7 @@ const signupLimiter = new RateLimit ({
 	message: 'Maximum accounts created. Please try again later.'
 })
 
-mongoose.connect('mongodb://localhost/edamam-fun', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 const db = mongoose.connection;
 
 db.once('open', () => {
@@ -48,6 +49,10 @@ app.use('/locked',
   expressJWT({secret: process.env.JWT_SECRET})
 		.unless({method: 'POST'}), 
 		  require('./routes/locked'));
+
+app.get('*', function(req, res) {
+	res.sendFile(__dirname + '/client/build/index.html');
+});
 
 app.listen(process.env.PORT, () => {
 	console.log(` 💰🎃💰 You are spinning on Port ${process.env.PORT} 💰🎃💰`)
