@@ -5,10 +5,8 @@ const About = (props) => {
         <div className='main'>
         	<h1 className='page-header'>About</h1>
         	<div className='text-box'>
-				<p className='about-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto deserunt libero velit ipsum quas excepturi quasi natus tempora praesentium? Culpa ea quaerat atque ducimus nesciunt eveniet, fugit molestias ex cum?
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam, laboriosam non sit numquam ullam deserunt necessitatibus, laborum neque velit fuga aliquid placeat ab et quas beatae cum ratione officiis qui!
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam sint quo, ipsum maiores facere harum beatae quis maxime impedit nihil voluptate est magni error iure ducimus blanditiis quia delectus quae.mpore aperiam at! Quibusdam saepe tempore praesentium animi. Quia, laborum numquam.
-					Rerum hic enim quis similique, commodi optio blanditiis vitae aut officia quia dolor dolore ipsum esse quae fuga assumenda qui, ea debitis tempora obcaecati excepturi atque! Similique doloribus repudiandae unde?
+				<p className='about-text'>
+					MERN stack App allowing users to create an account, and keep track of a digital pantry & recipe bank. You can add up to three ingredients to your recipe queue, and our API call will return multiple recipes with the given ingredients (with included dietary restriction filters). Keep track of your recipes by saving them to your account - where you can then rate and write about the ones you've made, while marking what you want to make soon. 
 				</p>
         	</div>
         	<p className='footer-text'>Created by Garrett Moore 2019</p>
