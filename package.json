@@ -20,7 +20,7 @@
     "express-rate-limit": "^4.0.2",
     "helmet": "^3.18.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.5.11",
+    "mongoose": "^5.7.5",
     "multer": "^1.4.1",
     "multer-storage-cloudinary": "^2.2.1",
     "spotify-node-applescript": "^1.1.1",
