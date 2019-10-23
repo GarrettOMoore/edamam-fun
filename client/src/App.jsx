@@ -1,72 +1,71 @@
-import React, {Component} from 'react';
-import axios from 'axios'
-import About from './Components/About'
-import Search from './Components/Search'
-import Login from './Components/Login'
-import SignUp from './Components/SignUp'
-import Pantry from './Components/Pantry'
-import Recipes from './Components/Recipes'
-import Saved from './Components/Saved'
-import Footer from './Components/Footer'
-import './App.css';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Logo from './Images/new_mixte_text.jpeg'
+import React, { Component } from "react";
+import axios from "axios";
+import About from "./Components/About";
+import Search from "./Components/Search";
+import Login from "./Components/Login";
+import SignUp from "./Components/SignUp";
+import Pantry from "./Components/Pantry";
+import Recipes from "./Components/Recipes";
+import Saved from "./Components/Saved";
+import Footer from "./Components/Footer";
+import "./App.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Logo from "./Images/new_mixte_text.jpeg";
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      token: '',
+      token: "",
       user: null,
-      errorMessage: '',
-      lockedResult: '',
+      errorMessage: "",
+      lockedResult: "",
       pantryData: {},
       recipes: {},
-      queryStr: '',
+      queryStr: "",
       filterElems: [],
       savedRecipes: {}
-    }
-    this.liftTokenToState = this.liftTokenToState.bind(this)
-    this.checkForLocalToken = this.checkForLocalToken.bind(this)
-    this.logout = this.logout.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.getPantryItems = this.getPantryItems.bind(this)
-    this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this)
+    };
+    this.liftTokenToState = this.liftTokenToState.bind(this);
+    this.checkForLocalToken = this.checkForLocalToken.bind(this);
+    this.logout = this.logout.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.getPantryItems = this.getPantryItems.bind(this);
+    this.handleRecipeSubmit = this.handleRecipeSubmit.bind(this);
     this.addFilterElem = this.addFilterElem.bind(this);
     this.updateRecipes = this.updateRecipes.bind(this);
     this.saveRecipe = this.saveRecipe.bind(this);
   }
 
-  checkForLocalToken () {
+  checkForLocalToken() {
     // Look in localStorage for the token
-    let token = localStorage.getItem('mernToken')
-    if (!token || token === 'undefined') {
+    let token = localStorage.getItem("mernToken");
+    if (!token || token === "undefined") {
       // No token.
-      localStorage.removeItem('mernToken')
+      localStorage.removeItem("mernToken");
       this.setState({
-        token: '',
+        token: "",
         user: null
-      })
+      });
     } else {
       // Found token - Send it to be verified.
-      axios.post('/auth/me/from/token', {token} )
-        .then( res => {
-          if (res.data.type === 'error') {
-            localStorage.removeItem('mernToken')
-            this.setState({
-              errorMessage: res.data.message
-            })
-          } else {
-            // Put token in localStorage
-            localStorage.setItem('mernToken', res.data.token)
-            // Put token in State
-            this.setState({
-              token: res.data.token,
-              user: res.data.user
-            })
-            this.getPantryItems();
-          }
-        })
+      axios.post("/auth/me/from/token", { token }).then(res => {
+        if (res.data.type === "error") {
+          localStorage.removeItem("mernToken");
+          this.setState({
+            errorMessage: res.data.message
+          });
+        } else {
+          // Put token in localStorage
+          localStorage.setItem("mernToken", res.data.token);
+          // Put token in State
+          this.setState({
+            token: res.data.token,
+            user: res.data.user
+          });
+          this.getPantryItems();
+        }
+      });
     }
   }
 
@@ -75,171 +74,243 @@ class App extends Component {
   }
 
   getPantryItems() {
-    let user = Object.assign({},this.state.user)
-    axios.get(`/pantry/${user._id}`).then( res => {
+    let user = Object.assign({}, this.state.user);
+    axios.get(`/pantry/${user._id}`).then(res => {
       this.setState({
-        pantryData: res.data,
-      })
-    })
-}
+        pantryData: res.data
+      });
+    });
+  }
 
-  liftTokenToState ({token, user}) {
+  liftTokenToState({ token, user }) {
     console.log("INSIDE LIFT TOKEN");
     this.setState({
       token: token,
       user: user
-    })
+    });
   }
 
-  logout () {
+  logout() {
     // Remove the token from localStorage
-    localStorage.removeItem('mernToken')
+    localStorage.removeItem("mernToken");
     // Remove user & token from state
     this.setState({
-      token: '',
+      token: "",
       user: null
-    })
+    });
   }
 
   handleClick(e) {
-    e.preventDefault()
+    e.preventDefault();
     // axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`
     let config = {
       headers: {
         Authorization: `Bearer ${this.state.token}`
       }
-    }
-    axios.get('./locked/test', config).then( res => {
+    };
+    axios.get("./locked/test", config).then(res => {
       this.setState({
         lockedResult: res.data
-      })
-    })
+      });
+    });
   }
 
-  fetchRecipes(qryStr){
-    axios.post('/recipes', {
-      query: qryStr
-    }).then((res) => {
-      this.setState({
-        recipes: res.data.data.hits
+  fetchRecipes(qryStr) {
+    axios
+      .post("/recipes", {
+        query: qryStr
       })
-    })
-    .catch((err) => console.log(err))
-    }
+      .then(res => {
+        this.setState({
+          recipes: res.data.data.hits
+        });
+      })
+      .catch(err => console.log(err));
+  }
 
-  handleRecipeSubmit(queue){
+  handleRecipeSubmit(queue) {
     if (queue.length > 0) {
-      let queryStr = queue.join('&q=').replace(/\s/g, '');
+      let queryStr = queue.join("&q=").replace(/\s/g, "");
       this.setState({
         queryStr: queryStr
-      })
-      this.fetchRecipes(queryStr)
+      });
+      this.fetchRecipes(queryStr);
     }
   }
 
-  addFilterElem(elem){
-    let filterStr = ''
-    if (elem.length > 0 && typeof elem === 'object') {
-      filterStr = elem.join('&').replace(/\s/g, '');
+  addFilterElem(elem) {
+    let filterStr = "";
+    if (elem.length > 0 && typeof elem === "object") {
+      filterStr = elem.join("&").replace(/\s/g, "");
       this.setState({
         filterElems: [...this.state.filterElems, filterStr]
-      })
+      });
     } else {
       filterStr = elem;
     }
-    this.updateRecipes(this.state.filterElems)
+    this.updateRecipes(this.state.filterElems);
   }
 
-  updateRecipes(elem){
-    axios.post('/recipes/update', {
-      query: this.state.queryStr,
-      filter: elem
-  }).then((res) => {
-    console.log(res)
-    this.setState({
-        recipes: res.data.data.hits
-    })
-  })
-  .catch((err) => console.log(err))
+  updateRecipes(elem) {
+    axios
+      .post("/recipes/update", {
+        query: this.state.queryStr,
+        filter: elem
+      })
+      .then(res => {
+        console.log(res);
+        this.setState({
+          recipes: res.data.data.hits
+        });
+      })
+      .catch(err => console.log(err));
   }
 
+  saveRecipe = recipeObj => {
+    console.log(recipeObj);
+    axios.post("/recipes/save", {
+      recipeId: recipeObj._id,
+      id: this.state.user._id,
+      name: recipeObj.label,
+      link: recipeObj.url,
+      image: recipeObj.image,
+      rating: 0,
+      note: "",
+      hasMade: false
+    });
+  };
 
-   saveRecipe = (recipeObj) => {
-    console.log(recipeObj)
-    axios.post('/recipes/save', {
-        recipeId: recipeObj._id,
-        id: this.state.user._id,
-        name: recipeObj.label,
-        link: recipeObj.url,
-        image: recipeObj.image,
-        rating: 0,
-        note: "",
-        hasMade: false
-    })
-  }
-
-  render(){
-    let user = Object.assign({}, this.state.user)
+  render() {
+    let user = Object.assign({}, this.state.user);
     let nav;
     let contents;
     if (user.name) {
       nav = (
         <>
-          <div className='nav-box'>
+          <div className="nav-box">
             <nav>
-              <Link className='nav-text'to='/'>About</Link> | {' '}
-              <Link className='nav-text'to='/search'>Search</Link> | {' '}
-              <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
-              <Link className='nav-text'to='/saved'>Saved</Link>
+              <Link className="nav-text" to="/">
+                About
+              </Link>{" "}
+              |{" "}
+              <Link className="nav-text" to="/search">
+                Search
+              </Link>{" "}
+              |{" "}
+              <Link className="nav-text" to="/mypantry">
+                My Pantry
+              </Link>{" "}
+              |{" "}
+              <Link className="nav-text" to="/saved">
+                Saved
+              </Link>
             </nav>
           </div>
         </>
-      )
-      contents = (
-      <>
-        <Route exact path='/' render={()=><About/>} />
-        <Route exact path='/saved' render={()=><Saved user={this.state.user}/>} />
-        <Route exact path='/search' render={()=><Search user={user}logout={this.logout}/>}/>
-        <Route path='/mypantry' render={(props)=><Pantry user={user}pantryData={this.state.pantryData}getPantryItems={this.getPantryItems}submitRecipe={this.handleRecipeSubmit}{...props}logout={this.logout}/>}/>
-        <Route exact path='/recipes' render={()=><Recipes updateRecipes={this.updateRecipes}recipes={this.state.recipes}saveRecipe={this.saveRecipe}/>} />
-      </>
-      )
-    } else {
-      nav = (
-        <div className='nav-box'>
-          <nav>
-            <Link className='nav-text'to='/'>About</Link> | {' '}
-            <Link className='nav-text'to='/search'>Search</Link> | {' '}
-            <Link className='nav-text'to='/mypantry'>My Pantry</Link> | {' '}
-            <Link className='nav-text'to='/login'>Log In</Link> | {' '}
-            <Link className='nav-text'to='/signup'>Sign Up</Link>
-          </nav>
-      </div>
-      )
+      );
       contents = (
         <>
-          <Route exact path ='/' render={()=><Login />}/>
-          <Route exact path ='/mypantry' render={()=><Login />}/>
-          <Route exaxt path ='/search' render={()=><Login/>}/>
-          <Route exact path='/login' render={(props)=><Login liftToken={this.liftTokenToState}getItems={this.getPantryItems}{...props}/>} />
-          <Route exact path='/signup' render={(props)=><SignUp liftToken={this.liftTokenToState}{...props}/>} />
+          <Route exact path="/" render={() => <About />} />
+          <Route
+            exact
+            path="/saved"
+            render={() => <Saved user={this.state.user} />}
+          />
+          <Route
+            exact
+            path="/search"
+            render={() => <Search user={user} logout={this.logout} />}
+          />
+          <Route
+            path="/mypantry"
+            render={props => (
+              <Pantry
+                user={user}
+                pantryData={this.state.pantryData}
+                getPantryItems={this.getPantryItems}
+                submitRecipe={this.handleRecipeSubmit}
+                {...props}
+                logout={this.logout}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/recipes"
+            render={() => (
+              <Recipes
+                updateRecipes={this.updateRecipes}
+                recipes={this.state.recipes}
+                saveRecipe={this.saveRecipe}
+              />
+            )}
+          />
         </>
-      )
-    }
-  return (
-    <Router>
-      <div className="App">
-        <img className='logo'src={Logo} alt="logo"/>
-        <div className='nav-box'>
+      );
+    } else {
+      nav = (
+        <div className="nav-box">
           <nav>
-            {nav}
+            <Link className="nav-text" to="/">
+              About
+            </Link>{" "}
+            |{" "}
+            <Link className="nav-text" to="/search">
+              Search
+            </Link>{" "}
+            |{" "}
+            <Link className="nav-text" to="/mypantry">
+              My Pantry
+            </Link>{" "}
+            |{" "}
+            <Link className="nav-text" to="/login">
+              Log In
+            </Link>{" "}
+            |{" "}
+            <Link className="nav-text" to="/signup">
+              Sign Up
+            </Link>
           </nav>
         </div>
-        {contents}
-        <Footer />
-      </div>
-  </Router>
-  );
+      );
+      contents = (
+        <>
+          <Route exact path="/" render={() => <Login />} />
+          <Route exact path="/mypantry" render={() => <Login />} />
+          <Route exaxt path="/search" render={() => <Login />} />
+          <Route
+            exact
+            path="/login"
+            render={props => (
+              <Login
+                liftToken={this.liftTokenToState}
+                getItems={this.getPantryItems}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/signup"
+            render={props => (
+              <SignUp liftToken={this.liftTokenToState} {...props} />
+            )}
+          />
+        </>
+      );
+    }
+    return (
+      <Router>
+        <div className="App">
+          <img className="logo" src={Logo} alt="logo" />
+          <div className="nav-box">
+            <nav>{nav}</nav>
+          </div>
+          {contents}
+          <Footer />
+        </div>
+      </Router>
+    );
   }
 }
 
