@@ -19,7 +19,7 @@
     "express-jwt": "^5.3.1",
     "express-rate-limit": "^4.0.2",
     "helmet": "^3.18.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.5.11",
     "multer": "^1.4.1",
     "multer-storage-cloudinary": "^2.2.1",
